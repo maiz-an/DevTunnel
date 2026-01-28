@@ -90,7 +90,7 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ---
 
-**Version 3.0.6** | Made with ❤️ for developers worldwide
+**Version 3.0.10** | Made with ❤️ for developers worldwide
 
 ---
 

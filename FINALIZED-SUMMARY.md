@@ -1,7 +1,8 @@
-# ✅ DevTunnel - Fully Finalized (v3.0.0)
+# ✅ DevTunnel - Fully Finalized (v3.0.10)
 
 **Date:** January 28, 2026  
-**Status:** Production Ready
+**Status:** Production Ready  
+**Latest Version:** 3.0.10 (with auto-detection and streaming support)
 
 ---
 
@@ -189,7 +190,9 @@ DevTunnel/
 ### Option 1: Install via npm (Recommended)
 ```bash
 npm install -g devtunnel-cli
-devtunnel
+cd your-project
+npm run dev  # Start your dev server
+devtunnel    # Auto-detects project and port!
 ```
 
 ### Option 2: Download from GitHub
