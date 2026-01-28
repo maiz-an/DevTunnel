@@ -1,10 +1,12 @@
-import { spawn } from 'child_process';
+import { spawn, exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import https from 'https';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { promisify } from 'util';
 
+const execAsync = promisify(exec);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -60,7 +62,57 @@ function safeUnlink(filePath) {
     }
   } catch (err) {
     // Ignore permission errors - file might be locked or in use
-    // Will be cleaned up later or on next run
+  }
+}
+
+async function isAdmin() {
+  if (process.platform !== 'win32') {
+    return process.getuid && process.getuid() === 0;
+  }
+  
+  try {
+    const { stdout } = await execAsync('net session');
+    return stdout.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+async function requestAdminElevation() {
+  if (process.platform !== 'win32') {
+    return false;
+  }
+  
+  console.log('\n🔐 Requesting administrator privileges...');
+  console.log('   A UAC prompt will appear - please click "Yes"\n');
+  
+  try {
+    const script = `
+      Start-Process -FilePath "node" -ArgumentList "${process.argv[1]}" -Verb RunAs -Wait
+    `;
+    
+    const { spawn } = await import('child_process');
+    return new Promise((resolve) => {
+      const proc = spawn('powershell', [
+        '-NoProfile',
+        '-NonInteractive',
+        '-ExecutionPolicy', 'Bypass',
+        '-Command', script
+      ], {
+        stdio: 'inherit',
+        shell: false
+      });
+      
+      proc.on('close', (code) => {
+        resolve(code === 0);
+      });
+      
+      proc.on('error', () => {
+        resolve(false);
+      });
+    });
+  } catch {
+    return false;
   }
 }
 
@@ -220,12 +272,32 @@ async function downloadWithRetry(urls, dest, maxRetries = 3) {
         
         if (err.message.includes('Permission denied') || err.message.includes('EPERM') || err.message.includes('EACCES')) {
           console.log(`\n❌ Permission Error: ${err.message}`);
+          
+          if (process.platform === 'win32') {
+            const admin = await isAdmin();
+            if (!admin) {
+              console.log('\n🔐 Attempting to request administrator privileges...');
+              const elevated = await requestAdminElevation();
+              if (elevated) {
+                console.log('✅ Running with administrator privileges - retrying download...\n');
+                await downloadFile(url, dest, retry);
+                return true;
+              } else {
+                console.log('\n⚠️  Could not elevate privileges automatically');
+              }
+            }
+          }
+          
           console.log('\n💡 Solutions:');
-          console.log('   1. Run terminal as Administrator (Right-click → Run as administrator)');
+          if (process.platform === 'win32') {
+            console.log('   1. Run terminal as Administrator (Right-click → Run as administrator)');
+          } else {
+            console.log('   1. Run with sudo: sudo npm install -g devtunnel-cli');
+          }
           console.log('   2. Check if antivirus is blocking file writes');
           console.log('   3. Check folder permissions for:', path.dirname(dest));
           console.log('   4. Try installing manually: https://github.com/cloudflare/cloudflared/releases\n');
-          throw err; // Don't retry permission errors
+          throw err;
         } else if (err.message.includes('ENOTFOUND') || err.message.includes('ECONNREFUSED')) {
           console.log(`\n❌ Network error: ${err.message}`);
         } else if (err.message.includes('timeout')) {
@@ -346,7 +418,12 @@ export async function setupCloudflared() {
     
     if (err.message.includes('Permission denied') || err.message.includes('EPERM') || err.message.includes('EACCES')) {
       console.log('💡 Permission Error Solutions:');
-      console.log('   1. Run terminal as Administrator (Right-click → Run as administrator)');
+      if (process.platform === 'win32') {
+        console.log('   1. Run terminal as Administrator (Right-click → Run as administrator)');
+        console.log('   2. DevTunnel will automatically request admin privileges if needed');
+      } else {
+        console.log('   1. Run with sudo: sudo npm install -g devtunnel-cli');
+      }
       console.log('   2. Check antivirus is not blocking file writes');
       console.log('   3. Check folder permissions for:', path.dirname(binaryPath));
       console.log('   4. Try installing Cloudflare manually:');

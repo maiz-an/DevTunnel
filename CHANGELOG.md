@@ -2,6 +2,15 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.13] - 2026-01-28
+
+### Added
+- **Automatic Privilege Elevation** - DevTunnel now automatically requests administrator privileges on Windows when permission errors occur
+- **Smart Permission Handling** - Detects permission errors and prompts for elevation instead of failing
+
+### Changed
+- **Better UX** - No need to manually run as administrator; DevTunnel handles it automatically
+
 ## [3.0.12] - 2026-01-28
 
 ### Fixed
