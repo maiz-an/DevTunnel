@@ -28,10 +28,7 @@ jobs:
       - name: Create GitHub Pages site
         run: |
           mkdir -p _site
-          # Copy README as index
-          cp README.md _site/index.md
-          # Create a simple HTML page
-          cat > _site/index.html << 'EOF'
+          cat > _site/index.html << 'EOHTML'
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -75,7 +72,7 @@ jobs:
             <h2>⚡ Quick Start</h2>
             <h3>Install via npm (Recommended)</h3>
             <pre><code>npm install -g devtunnel-cli
-devtunnel</code></pre>
+          devtunnel</code></pre>
 
             <h2>✨ Features</h2>
             <ul>
@@ -102,7 +99,7 @@ devtunnel</code></pre>
             <p><small>Version 3.0.6 | Made with ❤️ for developers worldwide</small></p>
           </body>
           </html>
-          EOF
+          EOHTML
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
