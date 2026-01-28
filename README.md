@@ -7,7 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/devtunnel)](https://www.npmjs.com/package/devtunnel)
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue)](https://maiz-an.github.io/DevTunnel/)
 
-🌐 **Website:** [devtunnel.vercel.app](https://devtunnel.vercel.app) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub Pages:** [maiz-an.github.io/DevTunnel](https://maiz-an.github.io/DevTunnel/)
+🌐 **Website:** [devtunnel.vercel.app](https://devtunnel.vercel.app) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) → Requesting `devtunnel` name | 💻 **GitHub Pages:** [maiz-an.github.io/DevTunnel](https://maiz-an.github.io/DevTunnel/)
 
 ---
 
@@ -112,7 +112,7 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ## 🔍 Search Keywords
 
-**DevTunnel** | **dev tunnel** | **localhost tunnel** | **cloudflare tunnel** | **ngrok alternative** | **port forwarding** | **local development** | **vite tunnel** | **react dev server** | **nextjs tunnel** | **npm devtunnel** | **devtunnel-cli** | **share localhost** | **development tools** | **zero config tunnel**
+**DevTunnel** | **dev tunnel** | **localhost tunnel** | **cloudflare tunnel** | **ngrok alternative** | **port forwarding** | **local development** | **vite tunnel** | **react dev server** | **nextjs tunnel** | **npm devtunnel** | **share localhost** | **development tools** | **zero config tunnel**
 
 ---
 

@@ -153,7 +153,7 @@ DevTunnel/
 - ❌ Vite config editing requirement (proxy solution)
 
 ### Added
-- ✅ **npm Package** - Published as `devtunnel-cli` on npm
+- ✅ **npm Package** - Published as `devtunnel-cli` on npm (deprecated, use `devtunnel` when available)
 - ✅ Bundled Cloudflare with auto-download
 - ✅ Enterprise error handling
 - ✅ Smart proxy server
