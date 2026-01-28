@@ -8,7 +8,7 @@
 - ✅ **Smart Proxy** - Bypasses Vite/React restrictions
 - ✅ **Cross-Platform** - Windows, macOS, Linux support
 - ✅ **Native Dialogs** - Modern folder picker (OS-specific)
-- ✅ **Custom Branding** - User can add their name
+- ✅ **Professional UI** - Clean, consistent box designs
 - ✅ **Error Handling** - Retry logic, multiple sources, clear messages
 
 ### Code Quality

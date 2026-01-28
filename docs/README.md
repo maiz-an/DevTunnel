@@ -27,31 +27,6 @@ npm start
 
 ---
 
-## 🎨 Show Your Name as Creator (Optional!)
-
-Want to let your team know whose backend they're connecting to?
-
-**Edit `config.js` file:**
-```javascript
-export const YOUR_NAME = "John";  // Your name!
-```
-
-**Now when they run it, they see:**
-```
-✅ PUBLIC URL (Created by: John):
-   https://random-xyz.trycloudflare.com
-
-   👤 Creator: John
-   💡 Share this URL with your team!
-```
-
-**Benefits:**
-- ✅ Team knows whose backend it is
-- ✅ Professional and clear
-- ✅ NO login needed for anyone!
-
-**No login needed!** Just edit the file once and share!
-
 **Features:**
 - ✅ **NO config changes needed** - Works with ANY Vite/React project!
 - ✅ Auto-installs Cloudflare (if needed)
@@ -213,22 +188,6 @@ Perfect for teams where:
 4. Tunnel connects to proxy
 5. Proxy forwards to your dev server
 6. **Result:** Public URL works, your config unchanged! ✨
-
-### Add YOUR name to URLs:
-Edit `config.js` to add your name:
-```javascript
-export const YOUR_NAME = "john";
-```
-
-Now URLs look like:
-```
-https://john-abc-xyz.trycloudflare.com  ← Your name!
-```
-
-**Benefits:**
-- ✅ Friends know it's YOUR backend
-- ✅ Professional looking
-- ✅ NO login needed for anyone!
 
 ---
 

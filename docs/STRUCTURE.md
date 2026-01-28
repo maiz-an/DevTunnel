@@ -18,8 +18,7 @@ DevTunnel/
 │   │   ├── folder-picker.js   # Cross-platform folder selection
 │   │   └── tunnel-helpers.js  # LocalTunnel integration
 │   │
-│   └── 📂 config/             # Configuration
-│       └── config.js          # User settings (YOUR_NAME)
+│   └── 📂 config/             # Reserved for future config
 │
 ├── 📂 docs/                    # Documentation
 │   ├── README.md              # Full documentation (moved from docs/)
@@ -66,7 +65,7 @@ DevTunnel/
 - Tunnel management
 - Multi-service fallback (Cloudflare → Ngrok → LocalTunnel)
 - URL extraction and display
-- Custom branding support
+- Professional output formatting
 
 **proxy-server.js**
 - HTTP/WebSocket proxy
@@ -89,10 +88,10 @@ DevTunnel/
 
 ### Config (`src/config/`)
 
-**config.js**
-- User configuration
-- Set YOUR_NAME for branding
-- Easy to customize
+**config/ (Reserved)**
+- Reserved for future user configuration
+- Currently not used
+- Simple and clean
 
 ### Docs (`docs/`)
 
@@ -174,8 +173,8 @@ Requests: Internet → Tunnel → Proxy → Dev Server
 
 ### Add configuration:
 
-1. Edit `src/config/config.js`
-2. Add export
+1. Add file to appropriate folder
+2. Export your functionality
 3. Import where needed
 4. Document in `docs/INSTRUCTIONS.md`
 

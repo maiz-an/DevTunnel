@@ -11,7 +11,7 @@ All notable changes to DevTunnel will be documented in this file.
 - **Enterprise Error Handling** - Retry logic, multiple sources, comprehensive error messages
 - **Smart Proxy Server** - Bypasses Vite/React host restrictions without config changes
 - **Cross-Platform Native Dialogs** - Modern folder picker for Windows, macOS, Linux
-- **Custom Branding** - Add your name to tunnel URLs
+- **Professional UI** - Clean, consistent output design
 - **Multi-Service Fallback** - Cloudflare → Ngrok → LocalTunnel for 99.9% uptime
 - **Improved UI** - Consistent, professional box designs across all platforms
 - **Security Policy** - Added SECURITY.md and CODE_OF_CONDUCT.md

@@ -45,8 +45,7 @@ src/
 │   ├── folder-picker.js   # Cross-platform folder selection
 │   └── tunnel-helpers.js  # LocalTunnel integration
 │
-└── config/         # Configuration
-    └── config.js          # Your settings (YOUR_NAME)
+└── config/         # Reserved for future config
 ```
 
 ### 📚 `docs/`
@@ -113,7 +112,7 @@ node src/core/start.js
 - Manages tunnel services
 - Multi-service fallback logic
 - URL extraction and display
-- Custom branding support
+- Professional output formatting
 
 **src/core/proxy-server.js**
 - HTTP/WebSocket proxy
@@ -166,7 +165,7 @@ node src/core/start.js
 ## Which Files Can You Edit?
 
 ### ✅ Safe to Edit
-- `src/config/config.js` - Add your name!
+- `src/config/` - Reserved for future config
 - All files in `docs/` - Improve docs
 - `CONTRIBUTING.md` - Add guidelines
 - `README.md` - Update main guide

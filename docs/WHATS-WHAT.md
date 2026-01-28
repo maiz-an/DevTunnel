@@ -31,14 +31,14 @@ package.json       ← npm dependencies
 
 ### 📂 `src/` - The Code
 ```
-src/config/config.js    ← EDIT THIS to add your name!
+src/config/             ← Reserved for future config
 src/core/start.js       ← Main entry point
 src/core/index.js       ← Tunnel manager
 src/core/proxy-server.js ← Smart proxy
 src/utils/*             ← Helper functions
 ```
 
-**What to edit:** Only `src/config/config.js` to add your name
+**What to edit:** Nothing! Zero configuration needed
 
 ### 📂 `docs/` - All Documentation
 ```
@@ -75,11 +75,8 @@ logs/*.log    ← Created automatically when you run the app
 - **Mac:** Double-click `START.command`
 - **Linux:** Run `./START.sh`
 
-### "How do I add my name?"
-Edit `src/config/config.js`:
-```javascript
-export const YOUR_NAME = "Your Name";
-```
+### "Do I need to configure anything?"
+No! DevTunnel is zero-configuration. Just run it!
 
 ### "Where's the documentation?"
 All in `docs/` folder. Start with `docs/README.md`
@@ -125,8 +122,8 @@ All in `docs/` folder. Start with `docs/README.md`
 2. **README.md**
    - This tells you what it does!
 
-3. **src/config/config.js**
-   - This is where you add your name!
+3. **src/core/** folder
+   - This is where all the magic happens!
 
 ---
 

@@ -18,7 +18,7 @@ DevTunnel/
 ├── 💻 SOURCE CODE (src/)
 │   ├── core/        → Main application logic
 │   ├── utils/       → Helper functions  
-│   └── config/      → Your settings (edit config.js!)
+│   └── config/      → Reserved for future config
 │
 ├── 📚 DOCUMENTATION (docs/)
 │   ├── README.md            → Full documentation
@@ -71,25 +71,11 @@ All Platforms (npm):
 ✅ Smart Proxy           - No Vite config changes needed
 ✅ Auto-Install          - Sets up everything automatically
 ✅ Multi-Tunnel          - Cloudflare → Ngrok → LocalTunnel
-✅ Custom Branding       - Add your name to outputs
+✅ Bundled Cloudflare    - Auto-downloads on first run
 ✅ Clean Logs            - Organized logging system
 ✅ Professional          - Well-structured codebase
 
 ═══════════════════════════════════════════════════════════════════
-
-🎨 CUSTOMIZE YOUR NAME
-═══════════════════════════════════════════════════════════════════
-
-Edit: src/config/config.js
-
-Change:
-  export const YOUR_NAME = "";
-
-To:
-  export const YOUR_NAME = "Your Name";
-
-Now everyone sees:
-  ✅ PUBLIC URL (Created by: Your Name)
 
 ═══════════════════════════════════════════════════════════════════
 
@@ -163,10 +149,10 @@ Optional:
 🤝 SHARING WITH FRIENDS
 ═══════════════════════════════════════════════════════════════════
 
-1. Edit src/config/config.js with your name
-2. Share the DevTunnel folder (ZIP or Git)
-3. Friends run the launcher for their OS
-4. They see your name in the output
+1. Share the DevTunnel folder (ZIP or Git)
+2. Friends run the launcher for their OS (START.bat/START.command/START.sh)
+3. They select their project and enter port
+4. Get instant public URL
 5. NO login needed for anyone!
 
 ═══════════════════════════════════════════════════════════════════

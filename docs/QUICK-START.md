@@ -83,14 +83,9 @@ sudo dpkg -i cloudflared-linux-amd64.deb
 
 ---
 
-## Customize (Optional):
+## That's It!
 
-Edit `src/config/config.js`:
-```javascript
-export const YOUR_NAME = "YourName";
-```
-
-Now URLs show:
+No configuration needed! URLs are automatically generated:
 ```
 ✅ PUBLIC URL (Created by: YourName)
 ```

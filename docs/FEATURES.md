@@ -62,27 +62,26 @@ Automatically tries services in order:
    - Shows password page on first visit
    - Uses your public IP as password
 
-### 📝 Custom Branding
+### ⚡ Instant Public URLs
 
-Show your name as creator:
-
-```javascript
-// src/config/config.js
-export const YOUR_NAME = "John";
-```
+Get shareable URLs instantly:
 
 Output:
 ```
-✅ PUBLIC URL (Created by: John):
-   https://abc-xyz.trycloudflare.com
-   
-   👤 Creator: John
+╔═══════════════════════════════════════════════════╗
+║ ✅ PUBLIC URL                                    ║
+╠═══════════════════════════════════════════════════╣
+║ https://abc-xyz.trycloudflare.com               ║
+╠═══════════════════════════════════════════════════╣
+║ 💡 Share this URL with anyone!                  ║
+╚═══════════════════════════════════════════════════╝
 ```
 
 **Benefits:**
-- Team knows whose backend
-- Professional appearance
-- No login required for anyone
+- No configuration needed
+- Works immediately
+- Share with anyone
+- No login required
 
 ### 📊 Organized Logging
 
