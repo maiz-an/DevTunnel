@@ -23,14 +23,14 @@ npm run dev
 ### Step 4: Run DevTunnel (Terminal 2 - same directory!)
 ```bash
 cd your-project  # Same directory where you run npm start
-devtunnel        # Auto-detects project and port!
+devtunnel-cli        # Auto-detects project and port!
 ```
 
 **Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
 
 ### Step 5: Auto-Detection (if running from project directory)
 
-If you run `devtunnel` from your project directory, it will automatically:
+If you run `devtunnel-cli` from your project directory, it will automatically:
 - ✅ Detect your project
 - ✅ Detect your running dev server port
 - ✅ No manual input needed!
@@ -110,7 +110,7 @@ DevTunnel will display:
 **Solution:** Will automatically use Ngrok or LocalTunnel.
 
 **Problem:** Folder picker doesn't open  
-**Solution:** Make sure you're running `devtunnel` from the correct directory.
+**Solution:** Make sure you're running `devtunnel-cli` from the correct directory.
 
 See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for more help.
 

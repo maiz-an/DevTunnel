@@ -5,7 +5,7 @@
 ### 🚀 To RUN the app:
 ```bash
 npm install -g devtunnel-cli  # One-time install
-devtunnel                      # Run from your project directory
+devtunnel-cli                      # Run from your project directory
 ```
 
 ### 📖 To READ about it:
@@ -75,9 +75,9 @@ logs/*.log    ← Created automatically when you run the app
 1. Install: `npm install -g devtunnel-cli` (one-time)
 2. Go to your project: `cd your-project`
 3. Start dev server: `npm start` (Terminal 1)
-4. Run DevTunnel: `cd your-project` then `devtunnel` (Terminal 2 - same directory!)
+4. Run DevTunnel: `cd your-project` then `devtunnel-cli` (Terminal 2 - same directory!)
 
-**Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
+**Important:** Run `devtunnel-cli` from the same directory where you run `npm start` or `npm run dev`!
 
 ### "Do I need to configure anything?"
 No! DevTunnel is zero-configuration. Just run it!

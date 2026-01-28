@@ -40,7 +40,7 @@ All Platforms:
   1. Install: npm install -g devtunnel
   2. Go to your project: cd your-project
   3. Start your dev server: npm start (Terminal 1)
-  4. Run DevTunnel: devtunnel (Terminal 2 - same directory!)
+  4. Run DevTunnel: devtunnel-cli (Terminal 2 - same directory!)
   5. Done! ✅
 
 ═══════════════════════════════════════════════════════════════════
@@ -132,7 +132,7 @@ Optional:
 ═══════════════════════════════════════════════════════════════════
 
 1. Tell them to install: npm install -g devtunnel
-2. They run: devtunnel from their project directory
+2. They run: devtunnel-cli from their project directory
 3. Auto-detection selects their project and port
 4. Get instant public URL
 5. NO login needed for anyone!

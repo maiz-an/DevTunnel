@@ -77,7 +77,7 @@ logs/
 
 Install via npm: `npm install -g devtunnel-cli`
 
-Then run: `devtunnel` from your project directory
+Then run: `devtunnel-cli` from your project directory
 
 ### Source Files
 

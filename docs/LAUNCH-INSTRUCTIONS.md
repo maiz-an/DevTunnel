@@ -24,7 +24,7 @@ npm run dev
 4. **Run DevTunnel (Terminal 2 - same directory!):**
 ```bash
 cd your-project  # Same directory where you run npm start
-devtunnel        # Auto-detects project and port!
+devtunnel-cli        # Auto-detects project and port!
 ```
 
 **Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
@@ -47,7 +47,7 @@ devtunnel        # Auto-detects project and port!
 
 When sharing with friends, tell them:
 
-**"Install: `npm install -g devtunnel-cli`, then run `devtunnel` from your project directory"**
+**"Install: `npm install -g devtunnel-cli`, then run `devtunnel-cli` from your project directory"**
 
 Simple and works for everyone!
 

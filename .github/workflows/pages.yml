@@ -71,8 +71,8 @@ jobs:
 
             <h2>⚡ Quick Start</h2>
             <h3>Install via npm (Recommended)</h3>
-            <pre><code>npm install -g devtunnel
-          devtunnel</code></pre>
+            <pre><code>npm install -g devtunnel-cli
+          devtunnel-cli</code></pre>
 
             <h2>✨ Features</h2>
             <ul>

@@ -93,7 +93,7 @@ Install via npm: `npm install -g devtunnel-cli`
 ## Data Flow
 
 ```
-User runs: devtunnel
+User runs: devtunnel-cli
     ↓
 RUN.js (Universal launcher)
     ↓

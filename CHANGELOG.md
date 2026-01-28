@@ -58,7 +58,7 @@ All notable changes to DevTunnel will be documented in this file.
 ## [3.0.9] - 2026-01-28
 
 ### Added
-- **Automatic Project Detection** - Auto-detects project in current directory when running `devtunnel`
+- **Automatic Project Detection** - Auto-detects project in current directory when running `devtunnel-cli`
 - **Automatic Port Detection** - Detects port from package.json scripts or running dev servers
 - **Smart Port Selection** - Automatically uses running dev server port if detected
 - **Multiple Project Support** - Easy selection when multiple projects are running
@@ -70,7 +70,7 @@ All notable changes to DevTunnel will be documented in this file.
 - **Cross-Platform** - Works seamlessly on Windows, macOS, and Linux
 
 ### How It Works
-1. If you run `devtunnel` in a project directory with a running dev server, it auto-detects everything
+1. If you run `devtunnel-cli` in a project directory with a running dev server, it auto-detects everything
 2. If multiple projects are running, you can select which port to use
 3. If no project detected, falls back to folder picker (existing behavior)
 

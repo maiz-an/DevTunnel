@@ -8,7 +8,7 @@ logs/
 *.md
 !README.md
 
-# Launcher scripts (not needed for npm install - users can use 'devtunnel' command)
+# Launcher scripts (not needed for npm install - users can use 'devtunnel-cli' command)
 START.bat
 START.sh
 START.command

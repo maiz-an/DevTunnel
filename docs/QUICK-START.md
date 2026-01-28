@@ -24,7 +24,7 @@ npm run dev
 4. **Run DevTunnel (Terminal 2 - same directory!):**
 ```bash
 cd your-project  # Same directory where you run npm start
-devtunnel        # Auto-detects project and port!
+devtunnel-cli        # Auto-detects project and port!
 ```
 
 ---

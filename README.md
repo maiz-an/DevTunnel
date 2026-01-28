@@ -35,7 +35,7 @@ npm run dev
 **4. Run DevTunnel (in another terminal, same directory):**
 ```bash
 cd your-project  # Same directory where you run npm start
-devtunnel        # Auto-detects project and port!
+devtunnel-cli        # Auto-detects project and port!
 ```
 
 **That's it!** DevTunnel will automatically detect your project and running dev server port.
@@ -56,13 +56,13 @@ devtunnel        # Auto-detects project and port!
 
 ## 💡 How to Use
 
-**Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
+**Important:** Run `devtunnel-cli` from the same directory where you run `npm start` or `npm run dev`!
 
 1. **Install DevTunnel** (one-time): `npm install -g devtunnel-cli`
 2. **Go to your project**: `cd your-project`
 3. **Start your dev server**: `npm start` or `npm run dev` (keep this running)
 4. **Open a new terminal** in the same project directory
-5. **Run DevTunnel**: `devtunnel` (auto-detects everything!)
+5. **Run DevTunnel**: `devtunnel-cli` (auto-detects everything!)
 6. **Get your public URL** and share it! 🌍
 
 **Example:**

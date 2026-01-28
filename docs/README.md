@@ -30,10 +30,10 @@ npm run dev
 **4. Run DevTunnel (Terminal 2 - same directory!):**
 ```bash
 cd your-project  # Same directory where you run npm start
-devtunnel        # Auto-detects project and port!
+devtunnel-cli        # Auto-detects project and port!
 ```
 
-**Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
+**Important:** Run `devtunnel-cli` from the same directory where you run `npm start` or `npm run dev`!
 
 ---
 
@@ -65,7 +65,7 @@ devtunnel        # Auto-detects project and port!
 ## 📤 Share with Friends
 
 1. Tell them to install: `npm install -g devtunnel-cli`
-2. They run: `devtunnel` from their project directory
+2. They run: `devtunnel-cli` from their project directory
 3. **Done!** Everything works automatically
 
 **Only requirement:**
@@ -192,7 +192,7 @@ Perfect for teams where:
 
 ### How it works:
 1. You: `npm run dev` (port 3000)
-2. Run: `devtunnel` (from same directory)
+2. Run: `devtunnel-cli` (from same directory)
 3. Tool creates proxy on port 4000
 4. Tunnel connects to proxy
 5. Proxy forwards to your dev server
