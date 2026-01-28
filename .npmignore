@@ -1,17 +1,22 @@
 # NPM ignore file
 # These files won't be included if someone does npm publish
+# NOTE: src/ and bin/ MUST be included (they contain the application code)
 
-# Development files
-src/
-bin/
+# Development/documentation files
 docs/
 logs/
 *.md
 !README.md
 
+# Launcher scripts (not needed for npm install - users can use 'devtunnel' command)
+START.bat
+START.sh
+START.command
+
 # Config files
 .gitignore
 .npmignore
+.editorconfig
 
 # Editor files
 .vscode/
@@ -29,3 +34,14 @@ test/
 tests/
 *.test.js
 *.spec.js
+
+# GitHub files
+.github/
+
+# Other project files
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+COMPLETE.md
+READY.md
+FINALIZED-SUMMARY.md
