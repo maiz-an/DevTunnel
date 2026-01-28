@@ -1,51 +1,95 @@
-# 🌐 Deploy DevTunnel Website to Vercel
+# 🌐 Deploy DevTunnel Website to GitHub Pages
 
-## 🚀 Quick Deploy
+## 🚀 Automatic Deployment (Recommended)
 
-### Option 1: One-Click Deploy (Easiest)
+### Enable GitHub Pages
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/maiz-an/DevTunnel&project-name=devtunnel&repository-name=devtunnel&root-directory=website)
+1. **Go to Repository Settings:**
+   - Visit: https://github.com/maiz-an/DevTunnel/settings/pages
 
-### Option 2: Manual Deploy
+2. **Configure Source:**
+   - Source: `GitHub Actions`
 
-1. **Go to Vercel:** https://vercel.com
+3. **Create Workflow File:**
+   ```bash
+   # Create .github/workflows directory in website branch
+   git checkout website
+   mkdir -p .github/workflows
+   ```
 
-2. **Import Project:**
-   - Click "Add New..." → "Project"
-   - Import your GitHub repository: `maiz-an/DevTunnel`
+4. **Add Workflow File:**
+   Create `.github/workflows/deploy.yml`:
 
-3. **Configure:**
-   - **Framework Preset:** Next.js
-   - **Root Directory:** `website`
-   - **Build Command:** (leave default) `npm run build`
-   - **Output Directory:** (leave default) `.next`
-   - **Install Command:** (leave default) `npm install`
+```yaml
+name: Deploy to GitHub Pages
 
-4. **Deploy:**
-   - Click "Deploy"
-   - Wait 2-3 minutes
-   - Your site is live! 🎉
+on:
+  push:
+    branches: [website]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: |
+          cd website
+          npm ci
+          
+      - name: Build
+        run: |
+          cd website
+          npm run build
+          
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./website/out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+5. **Commit and Push:**
+   ```bash
+   git add .github/workflows/deploy.yml
+   git commit -m "Add GitHub Pages deployment workflow"
+   git push
+   ```
+
+6. **Your Website Will Be Live At:**
+   ```
+   https://maiz-an.github.io/DevTunnel
+   ```
 
 ---
 
-## 🎯 Your Website URL
-
-After deployment, Vercel will give you a URL like:
-```
-https://devtunnel.vercel.app
-```
-
-Or
-
-```
-https://devtunnel-your username.vercel.app
-```
-
----
-
-## 🔧 Local Development
-
-Want to test the website locally?
+## 🔧 Manual Build (Testing)
 
 ```bash
 # Switch to website branch
@@ -57,11 +101,32 @@ cd website
 # Install dependencies
 npm install
 
-# Run development server
+# Build
+npm run build
+
+# Output will be in 'out' folder
+```
+
+---
+
+## 💻 Local Development
+
+```bash
+git checkout website
+cd website
+npm install
 npm run dev
 ```
 
 Open: http://localhost:3000
+
+---
+
+## 🌐 Your Live Website
+
+After deployment, your website will be available at:
+
+**https://maiz-an.github.io/DevTunnel**
 
 ---
 
@@ -72,7 +137,7 @@ Open: http://localhost:3000
    git checkout website
    ```
 
-2. Make your changes in `website/app/page.tsx`
+2. Edit `website/app/page.tsx`
 
 3. Commit and push:
    ```bash
@@ -81,71 +146,19 @@ Open: http://localhost:3000
    git push
    ```
 
-4. Vercel will automatically redeploy! ✨
+4. GitHub Actions will automatically rebuild and deploy! ✨
 
 ---
 
-## 🎨 Website Features
+## ✅ Deployment Checklist
 
-The landing page includes:
-- ✅ Modern, responsive design
-- ✅ Dark mode by default
-- ✅ Animated terminal demo
-- ✅ Features showcase
-- ✅ Step-by-step guide
-- ✅ Quick start instructions
-- ✅ Call-to-action buttons
-- ✅ Mobile-friendly
+- [ ] GitHub Pages enabled in repository settings
+- [ ] Source set to "GitHub Actions"
+- [ ] Workflow file created in `.github/workflows/deploy.yml`
+- [ ] Website branch exists and is pushed
+- [ ] First deployment triggered (automatic on push)
+- [ ] Website live at: https://maiz-an.github.io/DevTunnel
 
 ---
 
-## 🔗 After Deployment
-
-### Update Main README
-
-Add this to your main README.md:
-
-```markdown
-## 🌐 Website
-
-Visit our landing page: **https://your-site.vercel.app**
-```
-
-### Update GitHub About
-
-1. Go to: https://github.com/maiz-an/DevTunnel
-2. Click ⚙️ next to "About"
-3. Add website URL
-4. Save!
-
----
-
-## 💡 Custom Domain (Optional)
-
-Want a custom domain like `devtunnel.com`?
-
-1. Buy domain from Namecheap, GoDaddy, etc.
-2. In Vercel dashboard → Settings → Domains
-3. Add your custom domain
-4. Update DNS records (Vercel will guide you)
-5. Done! 🎉
-
----
-
-## 🐛 Troubleshooting
-
-**Build failed?**
-- Make sure root directory is set to `website`
-- Check that website branch exists
-- Verify package.json exists in website folder
-
-**Website not updating?**
-- Check Vercel dashboard for deployment status
-- Push changes to correct branch (`website`)
-- Trigger manual redeploy in Vercel if needed
-
----
-
-**Your DevTunnel website is ready to go live!** 🚀
-
-Deploy URL: https://vercel.com/new/clone?repository-url=https://github.com/maiz-an/DevTunnel&root-directory=website
+**Your DevTunnel website will be live in 2-3 minutes after setup!** 🎉

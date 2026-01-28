@@ -1,152 +1,87 @@
 # DevTunnel 🚀
 
-**Share your local dev servers worldwide - instantly!**
+**Share your local dev servers worldwide - Zero config tunnel for any framework**
 
-Zero Config | Cross-Platform | Works with Any Framework
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/maiz-an/DevTunnel)
 
-🌐 **Website:** Coming soon on Vercel! (Deploy guide: [docs/DEPLOY-WEBSITE.md](docs/DEPLOY-WEBSITE.md))
+🌐 **Website:** https://maiz-an.github.io/DevTunnel
 
 ---
 
 ## ⚡ Quick Start
 
-### 🪟 Windows
-**Double-click:** `START.bat`
+### Windows
+Double-click `START.bat`
 
-### 🍎 Mac
-**Double-click:** `START.command`  
-*(First time: `chmod +x START.command`)*
+### macOS
+Double-click `START.command`
 
-### 🐧 Linux
+### Linux
 ```bash
 chmod +x START.sh
 ./START.sh
 ```
 
-### 📦 Or use npm (all platforms):
+Or use npm:
 ```bash
 npm start
 ```
-
----
-
-## 💡 Before You Start
-
-**Make sure your dev server is running!**
-
-```bash
-# In another terminal:
-npm run dev
-```
-
-Then run DevTunnel.
 
 ---
 
 ## ✨ Features
 
 - 🤖 **Fully Automatic** - Installs everything automatically
-- 🎯 **Zero Config** - No changes to your projects
-- 🔗 **Smart Proxy** - Bypasses Vite/React host restrictions
+- 🎯 **Zero Config** - No project changes needed
+- 🔗 **Smart Proxy** - Bypasses Vite/React restrictions
 - 🌍 **Cross-Platform** - Windows, macOS, Linux
-- 📝 **Custom Branding** - Add your name as creator
-- 🚀 **Multi-Framework** - Works with ANY framework
+- 📝 **Custom Branding** - Add your name
+- 🚀 **Any Framework** - Works with all
 
 ---
 
-## 🎨 Add Your Name (Optional)
+## 💡 How to Use
+
+1. Start your dev server: `npm run dev`
+2. Run DevTunnel (see Quick Start above)
+3. Select your project folder
+4. Enter your port (default: 5173)
+5. Get your public URL and share it! 🌍
+
+---
+
+## 🎨 Custom Branding
 
 Edit `src/config/config.js`:
-
 ```javascript
 export const YOUR_NAME = "Your Name";
-```
-
-Now everyone sees:
-```
-✅ PUBLIC URL (Created by: Your Name)
 ```
 
 ---
 
 ## 📖 Documentation
 
-All documentation in `docs/` folder:
-
-- 📚 **Complete Guide** - `docs/README.md`
-- 🚀 **Quick Start** - `docs/QUICK-START.md`
-- ✨ **Features** - `docs/FEATURES.md`
-- 🔧 **Troubleshooting** - `docs/TROUBLESHOOTING.md`
-- 📋 **Version History** - `docs/CHANGELOG.md`
-- 🤝 **Contributing** - `docs/CONTRIBUTING.md`
-- 📄 **License** - `docs/LICENSE`
-- 📁 **Structure** - `docs/STRUCTURE.md`
-- ⚙️ **Config** - `docs/INSTRUCTIONS.md`
-- 🎯 **Quick Reference** - `docs/WHATS-WHAT.md`
-
----
-
-## 🌍 Use Cases
-
-### Share Backend APIs
-```javascript
-// Your backend runs locally on port 3000
-npm run dev
-
-// Run DevTunnel
-npm start
-
-// Get public URL: https://abc-xyz.trycloudflare.com
-
-// Share with team - they can access from anywhere!
-```
-
-### Perfect for:
-- ✅ Backend API sharing
-- ✅ Frontend + Backend collaboration
-- ✅ Client demos
-- ✅ Team development
-- ✅ Remote testing
+Complete docs in `/docs` folder:
+- [Complete Guide](docs/README.md)
+- [Features](docs/FEATURES.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [GitHub Pages Website](docs/DEPLOY-WEBSITE.md)
 
 ---
 
 ## 🛠️ Requirements
 
-- **Node.js** 16+ (auto-installed on Windows)
-- **Internet connection**
-- **Your dev server running**
+- Node.js 16+
+- Internet connection
+- Your dev server running
 
 ---
 
-## 📁 Project Structure
+## 📄 License
 
-```
-DevTunnel/
-├── START.bat           # 🪟 Windows launcher
-├── START.command       # 🍎 Mac launcher
-├── START.sh            # 🐧 Linux launcher
-├── README.md           # Main guide (you are here)
-├── package.json        # npm config
-├── src/                # Source code
-│   ├── core/          # Main logic
-│   ├── utils/         # Helpers
-│   └── config/        # Your settings (edit config.js!)
-├── docs/               # All documentation
-└── logs/               # Auto-generated logs
-```
+MIT License - see [LICENSE](docs/LICENSE)
 
 ---
 
-## 🤝 Share with Friends
-
-1. Edit `src/config/config.js` with your name
-2. Share this folder (ZIP or Git)
-3. Friends double-click `START.bat` / `START.command` / `START.sh`
-4. They see your name automatically!
-5. **NO login needed for anyone!**
-
----
-
----
-
-**Version 3.0.0** | **License:** MIT (`docs/LICENSE`) | **DevTunnel - Share local servers worldwide**
+**Version 3.0.0** | Made with ❤️ for developers worldwide
