@@ -4,13 +4,20 @@ All notable changes to DevTunnel will be documented in this file.
 
 ## [3.0.11] - 2026-01-28
 
+### Removed
+- **Manual Launchers** - Removed START.bat, START.command, and START.sh files
+- **Legacy Installation Methods** - npm install is now the only supported installation method
+
 ### Fixed
 - **Deprecation Warning** - Suppressed harmless `util._extend` warning from dependencies
 - **Cleaner Output** - No more deprecation warnings cluttering the console
 
 ### Changed
+- **Installation Method** - DevTunnel now exclusively uses npm for installation (`npm install -g devtunnel-cli`)
+- **Documentation** - Updated all docs to reflect npm-only installation
 - **Documentation** - Added comprehensive list of supported frameworks and backends
 - **Clarified Support** - Explicitly states DevTunnel works with ALL APIs and backends
+- **Simplified Workflow** - Removed confusion about multiple installation methods
 
 ## [3.0.10] - 2026-01-28
 

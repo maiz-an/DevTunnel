@@ -28,31 +28,6 @@ devtunnel        # Auto-detects project and port!
 
 **Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
 
-### Alternative: Download from GitHub
-
-**Option 2: Download from GitHub**
-
-**Windows:**
-```
-Double-click: START.bat
-```
-
-**macOS:**
-```
-Double-click: START.command
-```
-
-**Linux:**
-```bash
-chmod +x START.sh
-./START.sh
-```
-
-**Or use npm (if downloaded):**
-```bash
-npm start
-```
-
 ### Step 5: Auto-Detection (if running from project directory)
 
 If you run `devtunnel` from your project directory, it will automatically:
@@ -118,9 +93,9 @@ DevTunnel will display:
 
 ## 🔄 Sharing with Friends
 
-1. Share the DevTunnel folder (ZIP or GitHub clone)
-2. Friends run START.bat/START.command/START.sh
-3. They select their project
+1. Tell them to install: `npm install -g devtunnel-cli`
+2. They run `devtunnel` from their project directory
+3. Auto-detection selects their project
 4. They get instant public URL
 5. **No login needed for anyone!**
 
@@ -135,7 +110,7 @@ DevTunnel will display:
 **Solution:** Will automatically use Ngrok or LocalTunnel.
 
 **Problem:** Folder picker doesn't open  
-**Solution:** Run with `npm start` instead.
+**Solution:** Make sure you're running `devtunnel` from the correct directory.
 
 See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for more help.
 

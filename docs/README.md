@@ -35,22 +35,6 @@ devtunnel        # Auto-detects project and port!
 
 **Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
 
-### Alternative Options
-
-**Option B: Download from GitHub**
-
-**Option B: Download from GitHub**
-```
-Double-click: START.bat (Windows)
-Double-click: START.command (macOS)
-./START.sh (Linux)
-```
-
-**Option C: Terminal (if downloaded)**
-```bash
-npm start
-```
-
 ---
 
 **Features:**
@@ -80,17 +64,16 @@ npm start
 
 ## 📤 Share with Friends
 
-1. Share this folder (ZIP or GitHub)
-2. Friends run: `RunApp.bat`
-3. **Done!** Everything installs automatically
+1. Tell them to install: `npm install -g devtunnel-cli`
+2. They run: `devtunnel` from their project directory
+3. **Done!** Everything works automatically
 
 **Only requirement:**
-- Windows 10/11 (that's it!)
+- Node.js 16+ installed
 
 **Everything else is automatic:**
-- ✅ Auto-installs Node.js (if needed)
+- ✅ Auto-detects project and port
 - ✅ Auto-installs Cloudflare (if needed)
-- ✅ Auto-installs dependencies
 - ✅ Auto-configures everything
 - ✅ No manual setup, ever!
 
@@ -209,7 +192,7 @@ Perfect for teams where:
 
 ### How it works:
 1. You: `npm run dev` (port 3000)
-2. Run: `RunApp.bat`
+2. Run: `devtunnel` (from same directory)
 3. Tool creates proxy on port 4000
 4. Tunnel connects to proxy
 5. Proxy forwards to your dev server

@@ -4,10 +4,6 @@
 
 ```
 DevTunnel/
-├── 🚀 START.bat               # Windows launcher
-├── 🚀 START.command           # macOS launcher
-├── 🚀 START.sh                # Linux launcher
-│
 ├── 📂 src/                     # Source code
 │   ├── 📂 core/               # Core application logic
 │   │   ├── start.js           # Main entry point & setup
@@ -40,18 +36,9 @@ DevTunnel/
 
 ## File Descriptions
 
-### Root Launchers
+### Installation
 
-**Windows:**
-- `START.bat` - Double-click to run on Windows
-
-**Mac:**
-- `START.command` - Double-click to run on macOS
-- First time: `chmod +x START.command`
-
-**Linux:**
-- `START.sh` - Run on Linux
-- First time: `chmod +x START.sh`
+Install via npm: `npm install -g devtunnel-cli`
 
 ### Core (`src/core/`)
 
@@ -106,7 +93,9 @@ DevTunnel/
 ## Data Flow
 
 ```
-User runs launcher
+User runs: devtunnel
+    ↓
+RUN.js (Universal launcher)
     ↓
 start.js (Entry point)
     ↓

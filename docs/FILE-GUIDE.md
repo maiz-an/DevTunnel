@@ -2,12 +2,8 @@
 
 ## Root Files (What You See First)
 
-### 🚀 Launchers
-| File | Platform | Description |
-|------|----------|-------------|
-| `START.bat` | Windows | Double-click to run |
-| `START.command` | Mac | Double-click to run |
-| `START.sh` | Linux | Run with `./START.sh` |
+### 🚀 Installation
+Install via npm: `npm install -g devtunnel-cli`
 
 ### 📖 Documentation
 | File | Purpose |
@@ -77,27 +73,11 @@ logs/
 
 ## File Purposes Explained
 
-### Root Launchers
+### Installation
 
-**START.bat (Windows)**
-```batch
-@echo off
-cd /d "%~dp0"
-node src/core/start.js
-pause
-```
-- Changes to script directory
-- Runs the main application
-- Pauses so you can see output
+Install via npm: `npm install -g devtunnel-cli`
 
-**START.command / START.sh (Mac/Linux)**
-```bash
-#!/bin/bash
-cd "$(dirname "$0")"
-node src/core/start.js
-```
-- Changes to script directory
-- Runs the main application
+Then run: `devtunnel` from your project directory
 
 ### Source Files
 

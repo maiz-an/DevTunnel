@@ -3,10 +3,9 @@
 ## Root Folder (What You See First)
 
 ### 🚀 To RUN the app:
-```
-START.bat          ← Windows users: Double-click this
-START.command      ← Mac users: Double-click this
-START.sh           ← Linux users: Run this
+```bash
+npm install -g devtunnel-cli  # One-time install
+devtunnel                      # Run from your project directory
 ```
 
 ### 📖 To READ about it:
@@ -72,16 +71,11 @@ logs/*.log    ← Created automatically when you run the app
 
 ### "How do I run it?"
 
-**Recommended (npm install):**
-1. Install: `npm install -g devtunnel-cli`
+**Install and run:**
+1. Install: `npm install -g devtunnel-cli` (one-time)
 2. Go to your project: `cd your-project`
 3. Start dev server: `npm start` (Terminal 1)
 4. Run DevTunnel: `cd your-project` then `devtunnel` (Terminal 2 - same directory!)
-
-**Alternative (download from GitHub):**
-- **Windows:** Double-click `START.bat`
-- **Mac:** Double-click `START.command`
-- **Linux:** Run `./START.sh`
 
 **Important:** Run `devtunnel` from the same directory where you run `npm start` or `npm run dev`!
 
@@ -93,7 +87,6 @@ All in `docs/` folder. Start with `docs/README.md`
 
 ### "Can I delete anything?"
 **NO, don't delete:**
-- Launcher files (START.*)
 - src/ folder
 - package.json
 - README.md
@@ -113,26 +106,22 @@ All in `docs/` folder. Start with `docs/README.md`
 
 | What | How Many | Where |
 |------|----------|-------|
-| Launchers | 3 | Root folder |
 | Docs | 4 | Root folder |
 | Config files | 5 | Root folder |
 | Source code | 7 | src/ |
 | Documentation | 10 | docs/ |
-| **TOTAL** | **29 files** | Organized! |
+| **TOTAL** | **26+ files** | Organized! |
 
 ---
 
 ## Most Important Files
 
-**If you do nothing else, know these 3:**
+**If you do nothing else, know these 2:**
 
-1. **START.bat** / **START.command** / **START.sh**
-   - This runs the app!
-
-2. **README.md**
+1. **README.md**
    - This tells you what it does!
 
-3. **src/core/** folder
+2. **src/core/** folder
    - This is where all the magic happens!
 
 ---

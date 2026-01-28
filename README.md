@@ -40,25 +40,6 @@ devtunnel        # Auto-detects project and port!
 
 **That's it!** DevTunnel will automatically detect your project and running dev server port.
 
-### Option 2: Download from GitHub
-
-**Windows:**
-Double-click `START.bat`
-
-**macOS:**
-Double-click `START.command`
-
-**Linux:**
-```bash
-chmod +x START.sh
-./START.sh
-```
-
-**Or use npm:**
-```bash
-npm start
-```
-
 ---
 
 ## ✨ Features
@@ -125,7 +106,7 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ---
 
-**Version 3.0.10** | Made with ❤️ for developers worldwide
+**Version 3.0.11** | Made with ❤️ for developers worldwide
 
 ---
 

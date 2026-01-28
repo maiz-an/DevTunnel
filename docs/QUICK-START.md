@@ -1,30 +1,6 @@
 # 🚀 Quick Start Guide
 
-## ⚡ EASIEST WAY - Just Double-Click in Root Folder!
-
-### 🪟 Windows
-**Double-click:**
-```
-START.bat
-```
-
-### 🍎 macOS
-**Double-click:**
-```
-START.command
-```
-(First time: `chmod +x START.command`)
-
-### 🐧 Linux
-**Run:**
-```bash
-chmod +x START.sh
-./START.sh
-```
-
----
-
-## 📦 Alternative - Install via npm (all platforms):
+## ⚡ Install via npm (all platforms):
 
 **Step-by-Step:**
 
@@ -50,12 +26,6 @@ npm run dev
 cd your-project  # Same directory where you run npm start
 devtunnel        # Auto-detects project and port!
 ```
-
-**Or if downloaded from GitHub:**
-```bash
-npm start
-```
-
 
 ---
 
@@ -89,10 +59,6 @@ Then run DevTunnel.
 ---
 
 ## First Time Setup:
-
-### Windows
-- Everything installs automatically!
-- Just run `bin/windows/ForwardDev.bat`
 
 ### macOS
 You might need to install Cloudflare manually:

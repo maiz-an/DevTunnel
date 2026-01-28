@@ -1,6 +1,6 @@
 ╔════════════════════════════════════════════════════════════════════╗
 ║                                                                    ║
-║              🚀 DevTunnel v3.0                          ║
+║              🚀 DevTunnel v3.0.11                        ║
 ║              Share Local Dev Servers Worldwide                     ║
 ║                                                                    ║
 ╚════════════════════════════════════════════════════════════════════╝
@@ -9,11 +9,6 @@
 ═══════════════════════════════════════════════════════════════════
 
 DevTunnel/
-│
-├── 🚀 LAUNCHERS (Root Folder - Easy to Find!)
-│   ├── 🪟 Windows → START.bat
-│   ├── 🍎 macOS   → START.command
-│   └── 🐧 Linux   → START.sh
 │
 ├── 💻 SOURCE CODE (src/)
 │   ├── core/        → Main application logic
@@ -41,25 +36,12 @@ DevTunnel/
 🎯 QUICK START (EASIEST!)
 ═══════════════════════════════════════════════════════════════════
 
-Windows Users:
-  1. Start your dev server (npm run dev)
-  2. Double-click: START.bat (in root folder)
-  3. Done! ✅
-
-Mac Users:
-  1. Start your dev server (npm run dev)
-  2. Double-click: START.command (in root folder)
-  3. Done! ✅
-
-Linux Users:
-  1. Start your dev server (npm run dev)
-  2. Run: ./START.sh (in root folder)
-  3. Done! ✅
-
-All Platforms (npm):
-  1. Start your dev server
-  2. Run: npm start
-  3. Done! ✅
+All Platforms:
+  1. Install: npm install -g devtunnel-cli
+  2. Go to your project: cd your-project
+  3. Start your dev server: npm start (Terminal 1)
+  4. Run DevTunnel: devtunnel (Terminal 2 - same directory!)
+  5. Done! ✅
 
 ═══════════════════════════════════════════════════════════════════
 
@@ -149,9 +131,9 @@ Optional:
 🤝 SHARING WITH FRIENDS
 ═══════════════════════════════════════════════════════════════════
 
-1. Share the DevTunnel folder (ZIP or Git)
-2. Friends run the launcher for their OS (START.bat/START.command/START.sh)
-3. They select their project and enter port
+1. Tell them to install: npm install -g devtunnel-cli
+2. They run: devtunnel from their project directory
+3. Auto-detection selects their project and port
 4. Get instant public URL
 5. NO login needed for anyone!
 
@@ -166,7 +148,7 @@ Made with 🤖 for zero-configuration dev sharing worldwide!
 
 ═══════════════════════════════════════════════════════════════════
 
-Version: 3.0.0
+Version: 3.0.11
 Last Updated: 2026-01-28
 
 ═══════════════════════════════════════════════════════════════════

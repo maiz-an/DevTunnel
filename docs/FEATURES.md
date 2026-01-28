@@ -30,7 +30,6 @@ Internet → Cloudflare Tunnel → Proxy → Your Dev Server
 
 **Windows:**
 - Modern folder picker (Windows 11 style)
-- `.bat` launchers
 - `winget` auto-installation
 
 **macOS:**
