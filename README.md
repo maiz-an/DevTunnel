@@ -43,11 +43,13 @@ npm start
 
 ## 💡 How to Use
 
-1. Start your dev server: `npm run dev`
+1. Start your dev server: `npm start` or `npm run dev` (whichever your project uses)
 2. Run DevTunnel (see Quick Start above)
 3. Select your project folder
-4. Enter your port (default: 5173)
+4. Enter your port (default: 5173 for Vite, 3000 for most others)
 5. Get your public URL and share it! 🌍
+
+**Works with any command:** Vite, Create React App, Next.js, Express, NestJS, etc.
 
 ---
 
