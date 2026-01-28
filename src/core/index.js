@@ -28,13 +28,12 @@ if (!PORT || isNaN(PORT) || PORT < 1 || PORT > 65535) {
 let tunnelProcess;
 let currentTunnelType = null;
 
-console.log("╔════════════════════════════════════════════╗");
-console.log("║           🌐 DevTunnel v3.0               ║");
-console.log("╠════════════════════════════════════════════╣");
-console.log(`║  📦 ${PROJECT_NAME.padEnd(38)} ║`);
-console.log(`║  🔌 Port: ${PORT.toString().padEnd(34)} ║`);
-console.log("╚════════════════════════════════════════════╝\n");
-console.log("💡 Ensure dev server is running on port " + PORT + "\n");
+console.log("DevTunnel Tunnel Service");
+console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+console.log(`Project: ${PROJECT_NAME}`);
+console.log(`Port: ${PORT}`);
+console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+console.log("Ensure dev server is running on port " + PORT + "\n");
 
 // Check if project is Vite and auto-fix config for Cloudflare
 async function fixViteConfigForCloudflare() {
@@ -171,13 +170,13 @@ const TUNNEL_SERVICES = [
       }
     },
     needsViteFix: false,
-    warning: "⚠️  Note: LocalTunnel shows a password page on first visit (uses your public IP)"
+    warning: "Note: LocalTunnel shows a password page on first visit (uses your public IP)"
   }
 ];
 
 // Try each tunnel service
 async function tryTunnelServices() {
-  console.log("🔍 Checking available tunnel services...\n");
+  console.log("Checking available tunnel services...\n");
 
   let hasCloudflare = false;
   
@@ -191,15 +190,15 @@ async function tryTunnelServices() {
   
   // Show tip if Cloudflare not installed
   if (!hasCloudflare) {
-    console.log("💡 TIP: Install Cloudflare for best experience (no password, fastest)");
-    console.log("   → winget install Cloudflare.cloudflared\n");
+    console.log("TIP: Install Cloudflare for best experience (no password, fastest)");
+    console.log("   winget install Cloudflare.cloudflared\n");
   }
 
   for (const service of TUNNEL_SERVICES) {
     const available = await service.available();
     
     if (available) {
-      console.log(`✅ ${service.name} is available`);
+      console.log(`${service.name} is available`);
       
       // Show warning if exists
       if (service.warning) {
@@ -208,7 +207,7 @@ async function tryTunnelServices() {
       
       // Skip Vite auto-fix - using proxy server instead
       
-      console.log(`🌐 Starting ${service.name} tunnel...\n`);
+      console.log(`Starting ${service.name} tunnel...\n`);
       
       currentTunnelType = service.name;
       tunnelProcess = spawn(service.command, service.args, {
@@ -223,25 +222,25 @@ async function tryTunnelServices() {
       
       // Check if process is still running
       if (tunnelProcess && !tunnelProcess.killed) {
-        console.log(`\n✅ Successfully connected via ${service.name}!`);
+        console.log(`Successfully connected via ${service.name}!`);
         if (service.name === "LocalTunnel") {
-          console.log("💡 First-time visitors need to enter tunnel password (your public IP)");
-          console.log("💡 Get password at: https://loca.lt/mytunnelpassword\n");
+          console.log("Note: First-time visitors need to enter tunnel password (your public IP)");
+          console.log("Get password at: https://loca.lt/mytunnelpassword\n");
         }
         console.log("Press Ctrl+C to stop the tunnel\n");
         return true;
       }
     } else {
-      console.log(`⚠️  ${service.name} not available`);
+      console.log(`${service.name} not available`);
     }
   }
 
-  console.log("\n❌ No tunnel services available!");
-  console.log("\n💡 Recommended: Install Cloudflare (fastest, no password):");
+  console.log("\nNo tunnel services available!");
+  console.log("\nRecommended: Install Cloudflare (fastest, no password):");
   console.log("   winget install Cloudflare.cloudflared");
-  console.log("\n💡 Or install Ngrok:");
+  console.log("\nOr install Ngrok:");
   console.log("   Download from: https://ngrok.com/download");
-  console.log("\n💡 LocalTunnel is already installed but may require restart");
+  console.log("\nLocalTunnel is already installed but may require restart");
   process.exit(1);
 }
 
@@ -264,22 +263,11 @@ function setupTunnelHandlers(serviceName) {
           const urlMatch = trimmed.match(/(https?:\/\/[^\s]+trycloudflare\.com[^\s]*)/);
           if (urlMatch) {
             const url = urlMatch[1];
-            const minWidth = 60;
-            const urlLength = url.length + 4; // 2 spaces on each side + "║"
-            const boxWidth = Math.max(minWidth, urlLength);
-            
-            console.log("\n╔" + "═".repeat(boxWidth) + "╗");
-            const headerText = "✅ PUBLIC URL";
-            const headerPadding = boxWidth - headerText.length;
-            console.log("║ " + headerText + " ".repeat(Math.max(0, headerPadding)) + "║");
-            console.log("╠" + "═".repeat(boxWidth) + "╣");
-            const urlPadding = boxWidth - url.length;
-            console.log("║ " + url + " ".repeat(Math.max(0, urlPadding)) + "║");
-            console.log("╠" + "═".repeat(boxWidth) + "╣");
-            const shareText = "💡 Share this URL with anyone!";
-            const sharePadding = boxWidth - shareText.length;
-            console.log("║ " + shareText + " ".repeat(Math.max(0, sharePadding)) + "║");
-            console.log("╚" + "═".repeat(boxWidth) + "╝\n");
+            console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            console.log("PUBLIC URL:");
+            console.log(url);
+            console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            console.log("Share this URL with anyone!\n");
           }
         }
         // Show other important messages (but filter out most INF/WRN logs)
@@ -289,18 +277,10 @@ function setupTunnelHandlers(serviceName) {
       } else if (serviceName === "Ngrok") {
         if (trimmed.includes("https://") || trimmed.includes("http://")) {
           const url = trimmed;
-          const minWidth = 60;
-          const urlLength = url.length + 4;
-          const boxWidth = Math.max(minWidth, urlLength);
-          
-          console.log("\n╔" + "═".repeat(boxWidth) + "╗");
-          const headerText = "✅ PUBLIC URL";
-          const headerPadding = boxWidth - headerText.length;
-          console.log("║ " + headerText + " ".repeat(Math.max(0, headerPadding)) + "║");
-          console.log("╠" + "═".repeat(boxWidth) + "╣");
-          const urlPadding = boxWidth - url.length;
-          console.log("║ " + url + " ".repeat(Math.max(0, urlPadding)) + "║");
-          console.log("╚" + "═".repeat(boxWidth) + "╝\n");
+          console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+          console.log("PUBLIC URL:");
+          console.log(url);
+          console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
         }
       } else {
         // LocalTunnel or other services
@@ -308,18 +288,10 @@ function setupTunnelHandlers(serviceName) {
           const urlMatch = trimmed.match(/https?:\/\/[^\s]+/);
           if (urlMatch) {
             const url = urlMatch[0];
-            const minWidth = 60;
-            const urlLength = url.length + 4;
-            const boxWidth = Math.max(minWidth, urlLength);
-            
-            console.log("\n╔" + "═".repeat(boxWidth) + "╗");
-            const headerText = "✅ PUBLIC URL";
-            const headerPadding = boxWidth - headerText.length;
-            console.log("║ " + headerText + " ".repeat(Math.max(0, headerPadding)) + "║");
-            console.log("╠" + "═".repeat(boxWidth) + "╣");
-            const urlPadding = boxWidth - url.length;
-            console.log("║ " + url + " ".repeat(Math.max(0, urlPadding)) + "║");
-            console.log("╚" + "═".repeat(boxWidth) + "╝\n");
+            console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            console.log("PUBLIC URL:");
+            console.log(url);
+            console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
           }
         }
       }
@@ -334,18 +306,11 @@ function setupTunnelHandlers(serviceName) {
       const urlMatch = output.match(/(https?:\/\/[^\s]+trycloudflare\.com[^\s]*)/);
       if (urlMatch) {
         const url = urlMatch[1];
-        const minWidth = 60;
-        const urlLength = url.length + 4;
-        const boxWidth = Math.max(minWidth, urlLength);
-        
-        console.log("\n╔" + "═".repeat(boxWidth) + "╗");
-        const headerText = "✅ PUBLIC URL";
-        const headerPadding = boxWidth - headerText.length;
-        console.log("║ " + headerText + " ".repeat(Math.max(0, headerPadding)) + "║");
-        console.log("╠" + "═".repeat(boxWidth) + "╣");
-        const urlPadding = boxWidth - url.length;
-        console.log("║ " + url + " ".repeat(Math.max(0, urlPadding)) + "║");
-        console.log("╚" + "═".repeat(boxWidth) + "╝\n");
+        console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        console.log("PUBLIC URL:");
+        console.log(url);
+        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        console.log("Share this URL with anyone!\n");
       }
     }
     
@@ -353,25 +318,25 @@ function setupTunnelHandlers(serviceName) {
     if (!output.includes("INF") && !output.includes("WRN")) {
       const trimmed = output.trim();
       if (trimmed && !trimmed.includes("originCertPath")) {
-        console.error(`⚠️  ${trimmed}`);
+        console.error(`Error: ${trimmed}`);
       }
     }
   });
 
   tunnelProcess.on("error", (error) => {
-    console.error(`\n❌ ${serviceName} error:`, error.message);
+    console.error(`\n${serviceName} error:`, error.message);
   });
 
   tunnelProcess.on("exit", (code) => {
     if (code !== 0 && code !== null) {
-      console.error(`\n⚠️  ${serviceName} exited with code ${code}`);
+      console.error(`\n${serviceName} exited with code ${code}`);
     }
   });
 }
 
 // Handle cleanup on exit
 function cleanup() {
-  console.log("\n\n🛑 Shutting down tunnel...");
+  console.log("\nShutting down tunnel...");
   try {
     if (tunnelProcess) {
       tunnelProcess.kill();

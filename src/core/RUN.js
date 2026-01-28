@@ -9,8 +9,7 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-console.log("\n🚀 DevTunnel - Universal Launcher\n");
-console.log(`📍 Platform detected: ${platform()}\n`);
+// Silent launcher - no output needed
 
 // Start the main app
 // start.js is in the same directory as RUN.js (src/core/)

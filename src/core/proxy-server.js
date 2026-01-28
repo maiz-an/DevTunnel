@@ -21,7 +21,7 @@ const proxy = httpProxy.createProxyServer({
 
 // Handle proxy errors
 proxy.on("error", (err, req, res) => {
-  console.error("❌ Proxy error:", err.message);
+  console.error("Proxy error:", err.message);
   if (res.writeHead) {
     res.writeHead(502, { "Content-Type": "text/plain" });
     res.end("Bad Gateway: Could not connect to your dev server.\nMake sure it's running on port " + TARGET_PORT);
@@ -52,21 +52,19 @@ server.on("upgrade", (req, socket, head) => {
 
 // Start server
 server.listen(PROXY_PORT, () => {
-  console.log("╔════════════════════════════════════════════╗");
-  console.log("║       🔗 DevTunnel Proxy Server           ║");
-  console.log("╠════════════════════════════════════════════╣");
-  console.log(`║  📦 Project: ${PROJECT_NAME.padEnd(28)} ║`);
-  console.log(`║  🎯 Dev Server: http://localhost:${TARGET_PORT.toString().padEnd(7)} ║`);
-  console.log(`║  🔌 Proxy Port: ${PROXY_PORT.toString().padEnd(28)} ║`);
-  console.log("╠════════════════════════════════════════════╣");
-  console.log("║  ✅ Ready! Tunnel will connect to proxy   ║");
-  console.log("║  💡 No config changes needed              ║");
-  console.log("╚════════════════════════════════════════════╝\n");
+  console.log("DevTunnel Proxy Server");
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+  console.log(`Project: ${PROJECT_NAME}`);
+  console.log(`Dev Server: http://localhost:${TARGET_PORT}`);
+  console.log(`Proxy Port: ${PROXY_PORT}`);
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+  console.log("Ready! Tunnel will connect to proxy");
+  console.log("No config changes needed\n");
 });
 
 // Handle shutdown
 process.on("SIGINT", () => {
-  console.log("\n\n🛑 Shutting down proxy...");
+  console.log("\nShutting down proxy...");
   server.close();
   process.exit(0);
 });

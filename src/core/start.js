@@ -38,22 +38,22 @@ async function commandExists(command) {
 // Main function
 async function main() {
   console.clear();
-  console.log("\n╔════════════════════════════════════════════╗");
-  console.log("║                                            ║");
-  console.log("║           🚀 DevTunnel v3.0               ║");
-  console.log("║                                            ║");
-  console.log("║      Share local servers worldwide         ║");
-  console.log("║                                            ║");
-  console.log("╚════════════════════════════════════════════╝\n");
+  console.log("DevTunnel v3.0.1");
+  console.log("Share your local dev servers worldwide");
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+  console.log("Developer: maiz");
+  console.log("Repository: https://github.com/maiz-an/DevTunnel");
+  console.log("Website: https://devtunnel.vercel.app");
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
   // Step 1: Check Node.js
   console.log("[1/4] Checking Node.js...");
   if (!await commandExists("node")) {
-    console.log("❌ ERROR: Node.js not found!");
+    console.log("ERROR: Node.js not found!");
     console.log("Install from: https://nodejs.org/");
     process.exit(1);
   }
-  console.log("✅ SUCCESS: Node.js installed\n");
+  console.log("SUCCESS: Node.js installed\n");
 
   // Step 2: Check Cloudflare (bundled or system-installed)
   console.log("[2/4] Checking Cloudflare...");
@@ -64,37 +64,37 @@ async function main() {
   let cloudflareAvailable = false;
   
   if (hasBundledCloudflared()) {
-    console.log("✅ SUCCESS: Using bundled Cloudflare (no install needed)");
+    console.log("SUCCESS: Using bundled Cloudflare (no install needed)");
     cloudflareAvailable = true;
   } else if (await commandExists("cloudflared")) {
-    console.log("✅ SUCCESS: Cloudflare installed on system");
+    console.log("SUCCESS: Cloudflare installed on system");
     cloudflareAvailable = true;
   } else {
-    console.log("📦 First time setup - Downloading Cloudflare...");
-    console.log("💡 This only happens once (~40MB, 10-30 seconds)\n");
+    console.log("First time setup - Downloading Cloudflare...");
+    console.log("This only happens once (~40MB, 10-30 seconds)\n");
     
     try {
       const bundledPath = await setupCloudflared();
       
       if (bundledPath) {
-        console.log("✅ SUCCESS: Cloudflare ready to use");
+        console.log("SUCCESS: Cloudflare ready to use");
         cloudflareAvailable = true;
       } else {
-        console.log("⚠️  Could not download Cloudflare");
-        console.log("🔄 Will use alternative tunnel services\n");
+        console.log("Could not download Cloudflare");
+        console.log("Will use alternative tunnel services\n");
       }
     } catch (err) {
-      console.log(`⚠️  Setup error: ${err.message}`);
-      console.log("🔄 Will use alternative tunnel services\n");
+      console.log(`Setup error: ${err.message}`);
+      console.log("Will use alternative tunnel services\n");
     }
   }
   
   // Show what's available
   if (!cloudflareAvailable) {
-    console.log("💡 DevTunnel has multi-service fallback:");
-    console.log("   → Cloudflare (fastest, no password)");
-    console.log("   → Ngrok (fast alternative)");
-    console.log("   → LocalTunnel (backup option)");
+    console.log("DevTunnel has multi-service fallback:");
+    console.log("   Cloudflare (fastest, no password)");
+    console.log("   Ngrok (fast alternative)");
+    console.log("   LocalTunnel (backup option)");
     console.log("");
   }
 
@@ -102,32 +102,32 @@ async function main() {
   console.log("[3/4] Checking dependencies...");
   const nodeModulesPath = join(PROJECT_ROOT, "node_modules");
   if (!existsSync(nodeModulesPath)) {
-    console.log("📦 Installing dependencies...\n");
+    console.log("Installing dependencies...\n");
     // Run npm install in the project root directory
     const result = await runCommand("npm", ["install"], PROJECT_ROOT);
     if (result.code !== 0) {
-      console.log("\n❌ ERROR: npm install failed");
+      console.log("\nERROR: npm install failed");
       process.exit(1);
     }
-    console.log("\n✅ SUCCESS: Dependencies installed");
+    console.log("\nSUCCESS: Dependencies installed");
   } else {
-    console.log("✅ SUCCESS: Dependencies already installed");
+    console.log("SUCCESS: Dependencies already installed");
   }
   console.log("");
 
   // Step 4: Select folder using native OS dialog
   console.log("[4/4] Select your project folder...");
-  console.log("⏳ Opening folder picker...\n");
+  console.log("Opening folder picker...\n");
   
   const projectPath = await selectFolder();
   
   if (!projectPath || projectPath.length === 0) {
-    console.log("❌ ERROR: No folder selected");
+    console.log("ERROR: No folder selected");
     process.exit(1);
   }
   
   const projectName = basename(projectPath);
-  console.log(`✅ Selected: ${projectPath}\n`);
+  console.log(`Selected: ${projectPath}\n`);
 
   // Get port
   const portResponse = await prompts({
@@ -138,23 +138,22 @@ async function main() {
   });
   
   if (!portResponse.port) {
-    console.log("❌ ERROR: No port entered");
+    console.log("ERROR: No port entered");
     process.exit(1);
   }
   
   const devPort = portResponse.port;
   const proxyPort = devPort + 1000; // Use port 1000 higher for proxy
 
-  console.log("\n╔════════════════════════════════════════════╗");
-  console.log("║           🔧 Configuration                ║");
-  console.log("╠════════════════════════════════════════════╣");
-  console.log(`║  📦 Project: ${projectName.padEnd(28)} ║`);
-  console.log(`║  🎯 Dev Server: localhost:${devPort.toString().padEnd(17)} ║`);
-  console.log(`║  🔌 Proxy Port: ${proxyPort.toString().padEnd(28)} ║`);
-  console.log("╚════════════════════════════════════════════╝\n");
+  console.log("\nConfiguration:");
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+  console.log(`Project: ${projectName}`);
+  console.log(`Dev Server: localhost:${devPort}`);
+  console.log(`Proxy Port: ${proxyPort}`);
+  console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
   // Start proxy server
-  console.log("⚡ Starting services...\n");
+  console.log("Starting services...\n");
   const proxyPath = join(__dirname, "proxy-server.js");
   const proxyProcess = spawn("node", [proxyPath, devPort.toString(), proxyPort.toString(), projectName], {
     stdio: "inherit",
@@ -174,7 +173,7 @@ async function main() {
 
   // Handle cleanup
   const cleanup = () => {
-    console.log("\n🛑 Shutting down...");
+    console.log("\nShutting down...");
     proxyProcess.kill();
     tunnelProcess.kill();
     process.exit(0);
@@ -195,6 +194,6 @@ async function main() {
 
 // Run
 main().catch((error) => {
-  console.error("\n❌ ERROR:", error.message);
+  console.error("\nERROR:", error.message);
   process.exit(1);
 });
