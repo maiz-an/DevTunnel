@@ -115,11 +115,12 @@ chmod +x bin/linux/forward-dev.sh
 DeprecationWarning: The `util._extend` API is deprecated
 ```
 
-**This is harmless!**
-- Not an error
-- Everything works fine
-- Can be safely ignored
-- From `http-proxy` library
+**This is from DevTunnel dependencies, NOT your project!**
+- ✅ **Harmless** - Not an error
+- ✅ **Everything works fine** - Your project is unaffected
+- ✅ **Can be safely ignored** - Will be fixed in future dependency updates
+- ✅ **Suppressed in v3.0.11+** - Warning automatically hidden
+- From `http-proxy` or `localtunnel` library (dependency issue, not DevTunnel)
 
 ---
 
