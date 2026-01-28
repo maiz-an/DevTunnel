@@ -54,38 +54,42 @@ async function main() {
   // Import bundled cloudflared helpers
   const { setupCloudflared, hasBundledCloudflared } = await import("./setup-cloudflared.js");
   
+  let cloudflareAvailable = false;
+  
   if (hasBundledCloudflared()) {
     console.log("✅ SUCCESS: Using bundled Cloudflare (no install needed)");
+    cloudflareAvailable = true;
   } else if (await commandExists("cloudflared")) {
-    console.log("✅ SUCCESS: Cloudflare already installed on system");
+    console.log("✅ SUCCESS: Cloudflare installed on system");
+    cloudflareAvailable = true;
   } else {
-    console.log("📦 Bundling Cloudflare (first time setup)...");
-    const bundledPath = await setupCloudflared();
+    console.log("📦 First time setup - Downloading Cloudflare...");
+    console.log("💡 This only happens once (~40MB, 10-30 seconds)\n");
     
-    if (bundledPath) {
-      console.log("✅ SUCCESS: Cloudflare bundled and ready");
-    } else {
-      // Fallback to system installation
-      const platform = process.platform;
-      if (platform === "win32") {
-        console.log("⚡ Installing Cloudflare via winget...");
-        const result = await runCommand("winget", [
-          "install", "--id", "Cloudflare.cloudflared",
-          "--silent", "--accept-source-agreements", "--accept-package-agreements"
-        ]);
-        
-        if (result.code === 0) {
-          console.log("✅ SUCCESS: Cloudflare installed");
-        } else {
-          console.log("⚠️  WARNING: Cloudflare install failed (will use fallback)");
-        }
+    try {
+      const bundledPath = await setupCloudflared();
+      
+      if (bundledPath) {
+        console.log("✅ SUCCESS: Cloudflare ready to use");
+        cloudflareAvailable = true;
       } else {
-        console.log("⚠️  Cloudflare not found (will use fallback tunnels)");
-        console.log("💡 Install: brew install cloudflare/cloudflare/cloudflared (Mac)");
+        console.log("⚠️  Could not download Cloudflare");
+        console.log("🔄 Will use alternative tunnel services\n");
       }
+    } catch (err) {
+      console.log(`⚠️  Setup error: ${err.message}`);
+      console.log("🔄 Will use alternative tunnel services\n");
     }
   }
-  console.log("");
+  
+  // Show what's available
+  if (!cloudflareAvailable) {
+    console.log("💡 DevTunnel has multi-service fallback:");
+    console.log("   → Cloudflare (fastest, no password)");
+    console.log("   → Ngrok (fast alternative)");
+    console.log("   → LocalTunnel (backup option)");
+    console.log("");
+  }
 
   // Step 3: Check dependencies
   console.log("[3/4] Checking dependencies...");
