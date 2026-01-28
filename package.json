@@ -38,12 +38,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/devtunnel.git"
+    "url": "https://github.com/maiz-an/DevTunnel.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/devtunnel/issues"
+    "url": "https://github.com/maiz-an/DevTunnel/issues"
   },
-  "homepage": "https://github.com/yourusername/devtunnel#readme",
+  "homepage": "https://devtunnel.vercel.app",
   "engines": {
     "node": ">=16.0.0"
   },

@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/maiz-an/DevTunnel)
 
-🌐 **Website:** See `src/utils/pages/` for standalone website (HTML/CSS/JS)
+🌐 **Website:** [devtunnel.vercel.app](https://devtunnel.vercel.app)
 
 ---
 
