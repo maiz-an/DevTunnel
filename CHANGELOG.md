@@ -2,6 +2,17 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.10] - 2026-01-28
+
+### Fixed
+- **Port Detection Priority** - Now prioritizes running dev servers over package.json defaults
+- **Port Verification** - Verifies detected port is actually in use before using it
+- **Better Detection** - Checks for running servers first, then falls back to package.json
+
+### Changed
+- **Detection Logic** - Running servers are checked first, ensuring accurate port detection
+- **User Feedback** - Better messages when port detection finds mismatches
+
 ## [3.0.9] - 2026-01-28
 
 ### Added
