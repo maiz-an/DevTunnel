@@ -13,7 +13,8 @@ console.log("\n🚀 DevTunnel - Universal Launcher\n");
 console.log(`📍 Platform detected: ${platform()}\n`);
 
 // Start the main app
-const startPath = join(__dirname, "src", "core", "start.js");
+// start.js is in the same directory as RUN.js (src/core/)
+const startPath = join(__dirname, "start.js");
 const child = spawn("node", [startPath], {
   stdio: "inherit",
   shell: false
