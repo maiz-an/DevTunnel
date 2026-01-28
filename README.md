@@ -4,7 +4,7 @@
 
 Zero Config | Cross-Platform | Works with Any Framework
 
-🌐 **Website:** Coming soon on Vercel! (Deploy guide: [DEPLOY-WEBSITE.md](DEPLOY-WEBSITE.md))
+🌐 **Website:** Coming soon on Vercel! (Deploy guide: [docs/DEPLOY-WEBSITE.md](docs/DEPLOY-WEBSITE.md))
 
 ---
 
