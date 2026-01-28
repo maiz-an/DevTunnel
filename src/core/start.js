@@ -65,8 +65,8 @@ async function main() {
   console.log("Share your local dev servers worldwide");
   console.log("");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-  console.log("Developer: maiz");
   console.log("Repository: https://github.com/maiz-an/DevTunnel");
+  console.log("npm Package: https://www.npmjs.com/package/devtunnel-cli");
   console.log("Website: https://devtunnel.vercel.app");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("");
