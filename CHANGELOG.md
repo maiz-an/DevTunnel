@@ -7,6 +7,7 @@ All notable changes to DevTunnel will be documented in this file.
 ### 🎉 Major Release
 
 #### Added
+- **npm Package** - Published as `devtunnel-cli` on npm for easy global installation
 - **Bundled Cloudflare** - Automatically downloads on first run, no installation needed
 - **Enterprise Error Handling** - Retry logic, multiple sources, comprehensive error messages
 - **Smart Proxy Server** - Bypasses Vite/React host restrictions without config changes
@@ -14,6 +15,7 @@ All notable changes to DevTunnel will be documented in this file.
 - **Professional UI** - Clean, consistent output design
 - **Multi-Service Fallback** - Cloudflare → Ngrok → LocalTunnel for 99.9% uptime
 - **Improved UI** - Consistent, professional box designs across all platforms
+- **Dynamic Path Detection** - Works with any folder name, handles paths with spaces
 - **Security Policy** - Added SECURITY.md and CODE_OF_CONDUCT.md
 - **Website** - Professional landing page at devtunnel.vercel.app
 
@@ -30,6 +32,8 @@ All notable changes to DevTunnel will be documented in this file.
 - LocalTunnel password page (fallback prioritization)
 - Inconsistent UI across different terminals
 - Permission issues on Unix systems
+- Path handling with spaces (Windows compatibility)
+- Dynamic project root detection (works with any folder name)
 
 ### Technical Details
 - **Node.js:** 16+ required

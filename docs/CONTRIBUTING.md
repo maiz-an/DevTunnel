@@ -25,14 +25,15 @@ Thank you for your interest in contributing! 🎉
 #### Setup
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/devtunnel.git
-cd devtunnel
+git clone https://github.com/maiz-an/DevTunnel.git
+cd DevTunnel
 
 # Install dependencies
 npm install
 
 # Run the app
 npm start
+# Or install globally: npm install -g devtunnel-cli
 ```
 
 #### Making Changes

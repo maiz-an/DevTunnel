@@ -71,6 +71,7 @@ logs/*.log    ← Created automatically when you run the app
 ## Quick Answers
 
 ### "How do I run it?"
+- **Easiest:** `npm install -g devtunnel-cli` then `devtunnel`
 - **Windows:** Double-click `START.bat`
 - **Mac:** Double-click `START.command`
 - **Linux:** Run `./START.sh`

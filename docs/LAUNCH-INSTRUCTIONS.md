@@ -33,16 +33,24 @@ chmod +x START.sh
 
 ---
 
-## 📦 Method 2: Universal Node Launcher
+## 📦 Method 2: Install via npm (Recommended)
 
 **Works on ALL platforms:**
 ```bash
-node RUN.js
+npm install -g devtunnel-cli
+devtunnel
+```
+
+## 📦 Method 3: Universal Node Launcher (if downloaded)
+
+**Works on ALL platforms:**
+```bash
+npm start
 ```
 
 **Or:**
 ```bash
-npm start
+node src/core/RUN.js
 ```
 
 ---

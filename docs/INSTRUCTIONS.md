@@ -12,6 +12,14 @@ npm run dev
 
 ### Step 2: Run DevTunnel
 
+**Option 1: Install via npm (Recommended)**
+```bash
+npm install -g devtunnel-cli
+devtunnel
+```
+
+**Option 2: Download from GitHub**
+
 **Windows:**
 ```
 Double-click: START.bat
@@ -28,7 +36,7 @@ chmod +x START.sh
 ./START.sh
 ```
 
-**Or use npm:**
+**Or use npm (if downloaded):**
 ```bash
 npm start
 ```

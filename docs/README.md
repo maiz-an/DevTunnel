@@ -15,12 +15,20 @@ npm run dev
 
 ### Step 2: Run the app
 
-**Option A: Double-click**
-```
-RunApp.bat
+**Option A: Install via npm (Recommended)**
+```bash
+npm install -g devtunnel-cli
+devtunnel
 ```
 
-**Option B: Terminal**
+**Option B: Download from GitHub**
+```
+Double-click: START.bat (Windows)
+Double-click: START.command (macOS)
+./START.sh (Linux)
+```
+
+**Option C: Terminal (if downloaded)**
 ```bash
 npm start
 ```

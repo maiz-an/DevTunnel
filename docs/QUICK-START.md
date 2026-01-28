@@ -24,7 +24,13 @@ chmod +x START.sh
 
 ---
 
-## 📦 Alternative - Use npm (all platforms):
+## 📦 Alternative - Install via npm (all platforms):
+```bash
+npm install -g devtunnel-cli
+devtunnel
+```
+
+**Or if downloaded from GitHub:**
 ```bash
 npm start
 ```

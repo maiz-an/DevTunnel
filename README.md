@@ -11,19 +11,27 @@
 
 ## ⚡ Quick Start
 
-### Windows
+### Option 1: Install via npm (Recommended)
+```bash
+npm install -g devtunnel-cli
+devtunnel
+```
+
+### Option 2: Download from GitHub
+
+**Windows:**
 Double-click `START.bat`
 
-### macOS
+**macOS:**
 Double-click `START.command`
 
-### Linux
+**Linux:**
 ```bash
 chmod +x START.sh
 ./START.sh
 ```
 
-Or use npm:
+**Or use npm:**
 ```bash
 npm start
 ```

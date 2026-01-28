@@ -10,7 +10,7 @@
 **Share your local dev servers worldwide with zero configuration**
 
 - Run your dev server: `npm start` or `npm run dev`
-- Run DevTunnel: Double-click launcher or `npm start`
+- Run DevTunnel: `npm install -g devtunnel-cli` then `devtunnel`, or double-click launcher
 - Get instant public URL
 - Share with anyone!
 
@@ -126,7 +126,7 @@ DevTunnel/
 ✅ **Production Use** - Fully stable  
 ✅ **Public Release** - GitHub ready  
 ✅ **Community** - Open for contributions  
-✅ **npm Publishing** - Can publish anytime  
+✅ **npm Publishing** - Published as `devtunnel-cli` on npm  
 ✅ **Distribution** - Ready to share  
 
 ---
