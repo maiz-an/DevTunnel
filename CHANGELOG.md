@@ -2,6 +2,17 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.12] - 2026-01-28
+
+### Fixed
+- **Permission Errors** - Improved error handling for EPERM/EACCES errors when downloading Cloudflare binary
+- **File Cleanup** - Safe file deletion that handles locked files gracefully
+- **Error Messages** - Clear, actionable error messages for permission issues with solutions
+
+### Changed
+- **Code Quality** - Cleaned up comments and improved code readability
+- **Error Recovery** - Better handling of file write errors with specific guidance
+
 ## [3.0.11] - 2026-01-28
 
 ### Removed
