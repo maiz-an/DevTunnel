@@ -2,6 +2,12 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.8] - 2026-01-28
+
+### Changed
+- **Startup Display** - Removed developer name, added npm package link
+- **Info Header** - Now shows Repository, npm Package, and Website links
+
 ## [3.0.7] - 2026-01-28
 
 ### Added
