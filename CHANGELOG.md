@@ -2,6 +2,11 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.27] - 2026-01-30
+
+### Changed
+- **Production cleanup** - Removed internal/reference docs; docs now only Features, Troubleshooting, Contributing, License
+
 ## [3.0.26] - 2026-01-30
 
 ### Added
