@@ -1,4 +1,4 @@
-# DevTunnel 🚀
+# DevTunnel-CLI 🚀
 
 **Share your local dev servers worldwide - Zero config tunnel for any framework**
 

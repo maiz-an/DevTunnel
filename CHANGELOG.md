@@ -2,6 +2,13 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.31] - 2026-01-30
+
+### Changed
+- README: title "DevTunnel-CLI" for npm
+- Example URLs: generic https://your-app.serviceprovider.com (website + docs/FEATURES.md)
+- Website: Weekly Downloads from npm API; hero text; all example URLs updated
+
 ## [3.0.30] - 2026-01-30
 
 ### Changed
