@@ -2,12 +2,28 @@
 
 // Universal Node.js Launcher - Works on ALL platforms!
 import { spawn } from "child_process";
-import { platform } from "os";
+import { readFileSync, existsSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Version flags: devtunnel-cli --version, -v, or --v
+const args = process.argv.slice(2);
+const showVersion = args.some((a) => a === "--version" || a === "-v" || a === "--v");
+if (showVersion) {
+  try {
+    const pkgPath = join(dirname(dirname(__dirname)), "package.json");
+    const version = existsSync(pkgPath)
+      ? JSON.parse(readFileSync(pkgPath, "utf8")).version
+      : "?.?.?";
+    console.log(version);
+  } catch (err) {
+    console.log("?.?.?");
+  }
+  process.exit(0);
+}
 
 const originalEmitWarning = process.emitWarning;
 process.emitWarning = function(warning, ...args) {
