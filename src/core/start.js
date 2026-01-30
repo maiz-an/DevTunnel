@@ -88,9 +88,30 @@ function detectPortFromPackage(packagePath) {
   }
 }
 
-// Check common ports for running dev servers
+// Detect Laravel/PHP project (composer.json + artisan)
+function detectLaravelProject(currentDir) {
+  const composerPath = join(currentDir, "composer.json");
+  const artisanPath = join(currentDir, "artisan");
+  if (!existsSync(composerPath) || !existsSync(artisanPath)) return null;
+  try {
+    const composerJson = JSON.parse(readFileSync(composerPath, "utf8"));
+    const projectName = (composerJson.name && composerJson.name.replace(/^laravel\//i, "")) || basename(currentDir);
+    return { name: projectName, defaultPort: 8000 }; // php artisan serve
+  } catch (err) {
+    return null;
+  }
+}
+
+// Detect plain HTML project (index.html in root)
+function detectHtmlProject(currentDir) {
+  const indexPath = join(currentDir, "index.html");
+  if (!existsSync(indexPath)) return null;
+  return { name: basename(currentDir), defaultPort: 8080 }; // common for HTML/Live Server/XAMPP
+}
+
+// Check common ports for running dev servers (includes Laravel 8000, XAMPP/Live Server 8080/5500)
 async function detectRunningDevServer() {
-  const commonPorts = [3000, 5173, 8080, 5000, 4000, 8000, 3001, 5174];
+  const commonPorts = [3000, 5173, 8080, 8000, 5000, 4000, 5500, 3001, 5174];
   const detected = [];
   
   for (const port of commonPorts) {
@@ -122,40 +143,55 @@ async function detectRunningDevServer() {
   return detected;
 }
 
-// Auto-detect project in current directory
+// Auto-detect project in current directory (Laravel/PHP first, then Node/npm, then HTML)
 async function autoDetectProject() {
   const currentDir = process.cwd();
-  const packagePath = join(currentDir, 'package.json');
-  
-  // Check if package.json exists
-  if (!existsSync(packagePath)) {
-    return null;
-  }
-  
-  try {
-    const packageJson = JSON.parse(readFileSync(packagePath, 'utf8'));
-    const projectName = packageJson.name || basename(currentDir);
-    
-    // FIRST: Check for running dev servers (priority)
-    const runningPorts = await detectRunningDevServer();
-    let detectedPort = null;
-    
-    if (runningPorts.length > 0) {
-      // Use running server port (most accurate)
-      detectedPort = runningPorts[0];
-    } else {
-      // Fallback: Try to detect port from package.json
-      detectedPort = detectPortFromPackage(packagePath);
-    }
-    
+  const packagePath = join(currentDir, "package.json");
+  const runningPorts = await detectRunningDevServer();
+
+  // 1) Laravel/PHP (composer.json + artisan) — default port 8000 (php artisan serve)
+  const laravel = detectLaravelProject(currentDir);
+  if (laravel) {
+    const detectedPort = runningPorts.length > 0 ? runningPorts[0] : laravel.defaultPort;
     return {
       path: currentDir,
-      name: projectName,
-      port: detectedPort
+      name: laravel.name,
+      port: detectedPort,
+      projectType: "laravel"
     };
-  } catch (err) {
-    return null;
   }
+
+  // 2) Node/npm (package.json)
+  if (existsSync(packagePath)) {
+    try {
+      const packageJson = JSON.parse(readFileSync(packagePath, "utf8"));
+      const projectName = packageJson.name || basename(currentDir);
+      const detectedPort =
+        runningPorts.length > 0 ? runningPorts[0] : detectPortFromPackage(packagePath);
+      return {
+        path: currentDir,
+        name: projectName,
+        port: detectedPort,
+        projectType: "node"
+      };
+    } catch (err) {
+      // fall through to HTML check
+    }
+  }
+
+  // 3) Plain HTML (index.html) — default port 8080 (Live Server, XAMPP, etc.)
+  const html = detectHtmlProject(currentDir);
+  if (html) {
+    const detectedPort = runningPorts.length > 0 ? runningPorts[0] : html.defaultPort;
+    return {
+      path: currentDir,
+      name: html.name,
+      port: detectedPort,
+      projectType: "html"
+    };
+  }
+
+  return null;
 }
 
 // ASCII Logo - Compatible with all OS and terminals
@@ -287,7 +323,13 @@ async function main() {
     
     if (!portInUse) {
       // Detected port is not actually running, check for other running servers
-      console.log(`Detected port ${autoDetected.port} from package.json, but no server running on that port`);
+      const portSource =
+        autoDetected.projectType === "laravel"
+          ? "Laravel (php artisan serve)"
+          : autoDetected.projectType === "html"
+            ? "HTML project"
+            : "package.json";
+      console.log(`Detected port ${autoDetected.port} (${portSource}), but no server running on that port`);
       console.log("Checking for running dev servers...");
       
       const runningPorts = await detectRunningDevServer();
@@ -349,9 +391,12 @@ async function main() {
       projectPath = selectedPath;
       projectName = basename(selectedPath);
       
-      // Try to detect port for selected project
-      const selectedPackagePath = join(selectedPath, 'package.json');
-      const detectedPort = detectPortFromPackage(selectedPackagePath);
+      // Try to detect port for selected project (Laravel → 8000, Node from package.json, else 5173)
+      const selectedPackagePath = join(selectedPath, "package.json");
+      const laravelSelected = detectLaravelProject(selectedPath);
+      const detectedPort = laravelSelected
+        ? laravelSelected.defaultPort
+        : detectPortFromPackage(selectedPackagePath);
       
       const portResponse = await prompts({
         type: "number",
@@ -435,9 +480,15 @@ async function main() {
     console.log(`Selected: ${projectPath}`);
     console.log("");
     
-    // Try to detect port for selected project
-    const selectedPackagePath = join(projectPath, 'package.json');
-    const detectedPort = detectPortFromPackage(selectedPackagePath);
+    // Try to detect port for selected project (Laravel → 8000, HTML → 8080, Node from package.json)
+    const selectedPackagePath = join(projectPath, "package.json");
+    const laravelSelected = detectLaravelProject(projectPath);
+    const htmlSelected = detectHtmlProject(projectPath);
+    let detectedPort = laravelSelected
+      ? laravelSelected.defaultPort
+      : htmlSelected
+        ? htmlSelected.defaultPort
+        : detectPortFromPackage(selectedPackagePath);
     
     // Check for running servers
     const runningPorts = await detectRunningDevServer();
