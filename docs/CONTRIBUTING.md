@@ -63,8 +63,19 @@ Test on all platforms if possible:
 3. Ensure code works on multiple platforms
 4. Wait for review and address feedback
 
-#### Releasing (version bump / publish)
-When you bump the CLI version or publish to npm, **also update the website** (DevTunnelPages repo): update the version number and any changed copy in `app/page.tsx`, `app/layout.tsx`, and `SEO.md` so https://devtunnel-cli.vercel.app stays in sync.
+#### Releasing (version bump / publish) — ALWAYS do BOTH repos
+
+**1. CLI repo (DevTunnel-CLI)** — bump version in ALL of these:
+- `package.json` → `"version": "3.0.XX"`
+- `src/core/start.js` → both fallbacks `"3.0.XX"`
+- `src/utils/pages/index.html` → footer `Version 3.0.XX`
+- `CHANGELOG.md` → add `[3.0.XX]` entry
+
+**2. Website repo (DevTunnel-CLI-Pages)** — same version in ALL of these:
+- `app/page.tsx` → `softwareVersion`, hero `v3.0.XX`, terminal badge `DevTunnel CLI v3.0.XX`, footer `Version 3.0.XX`
+- If copy/links changed: `app/layout.tsx`, `SEO.md`
+
+Then: commit & push CLI repo → `npm publish` → commit & push website repo. Do not skip the website.
 
 ## Project Structure
 
