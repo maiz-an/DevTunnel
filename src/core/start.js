@@ -525,6 +525,23 @@ async function main() {
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("");
 
+  // For HTML projects with no server running: start built-in static server
+  let staticServerProcess = null;
+  const isHtmlProject = !!detectHtmlProject(projectPath);
+  const portInUseNow = await checkPortInUse(devPort);
+  if (isHtmlProject && !portInUseNow) {
+    console.log("Starting built-in static server for HTML project...");
+    const staticServerPath = join(__dirname, "static-server.js");
+    staticServerProcess = spawn("node", [staticServerPath, projectPath, devPort.toString()], {
+      stdio: "pipe",
+      shell: false
+    });
+    staticServerProcess.on("error", () => {});
+    await new Promise((r) => setTimeout(r, 1200));
+    console.log(`Static server running at http://localhost:${devPort}`);
+    console.log("");
+  }
+
   // Start proxy server
   console.log("Starting services...");
   console.log("");
@@ -548,6 +565,7 @@ async function main() {
   // Handle cleanup
   const cleanup = () => {
     console.log("\nShutting down...");
+    if (staticServerProcess) staticServerProcess.kill();
     proxyProcess.kill();
     tunnelProcess.kill();
     process.exit(0);

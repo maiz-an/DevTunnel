@@ -1,5 +1,12 @@
 import http from "http";
-import httpProxy from "http-proxy";
+
+// Suppress util._extend deprecation from http-proxy (must run before loading http-proxy)
+const _origEmit = process.emitWarning;
+process.emitWarning = function (warning, ...args) {
+  if (typeof warning === "string" && warning.includes("util._extend")) return;
+  return _origEmit.apply(this, [warning, ...args]);
+};
+const { default: httpProxy } = await import("http-proxy");
 
 // Get ports from command line
 const TARGET_PORT = parseInt(process.argv[2]); // Your dev server port
