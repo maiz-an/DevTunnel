@@ -69,6 +69,22 @@ function checkPortInUse(port) {
   });
 }
 
+// Poll until server at port responds (for HTML built-in static server)
+async function waitForServerReady(port, timeoutMs = 10000) {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    try {
+      const code = await new Promise((resolve) => {
+        const req = http.get(`http://127.0.0.1:${port}`, { timeout: 2000 }, (res) => resolve(res.statusCode));
+        req.on("error", () => resolve(null));
+      });
+      if (code !== null && code >= 200 && code < 500) return true;
+    } catch (err) {}
+    await new Promise((r) => setTimeout(r, 300));
+  }
+  return false;
+}
+
 // Detect port from package.json
 function detectPortFromPackage(packagePath) {
   try {
@@ -536,7 +552,7 @@ async function main() {
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("");
 
-  // For HTML projects with no server running: start built-in static server
+  // For HTML projects with no server running: start built-in static server and confirm it works
   let staticServerProcess = null;
   const isHtmlProject = !!detectHtmlProject(projectPath);
   const portInUseNow = await checkPortInUse(devPort);
@@ -548,8 +564,14 @@ async function main() {
       shell: false
     });
     staticServerProcess.on("error", () => {});
-    await new Promise((r) => setTimeout(r, 1200));
-    console.log(`Static server running at http://localhost:${devPort}`);
+    const ready = await waitForServerReady(devPort, 10000);
+    if (!ready) {
+      if (staticServerProcess) staticServerProcess.kill();
+      console.log("");
+      console.log("ERROR: Built-in static server did not start in time. Check that port " + devPort + " is free.");
+      process.exit(1);
+    }
+    console.log("Static server ready at http://localhost:" + devPort);
     console.log("");
   }
 
