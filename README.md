@@ -17,7 +17,7 @@
 
 **1. Install DevTunnel (one-time setup):**
 ```bash
-npm install -g devtunnel
+npm install -g devtunnel-cli
 ```
 
 **2. Navigate to your project directory:**
@@ -73,7 +73,7 @@ npm run dev
 
 # Terminal 2 - DevTunnel (same directory!)
 cd my-react-app
-devtunnel
+devtunnel-cli
 ```
 
 **Works with any framework, API, or backend:** Vite, React, Next.js, Express, NestJS, FastAPI, Flask, Django, Spring Boot, Laravel, and any HTTP/HTTPS server!
@@ -106,7 +106,7 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ---
 
-**Version 3.0.15** | Made with ❤️ for developers worldwide
+**Latest on [npm](https://www.npmjs.com/package/devtunnel-cli)** | Made with ❤️ for developers worldwide
 
 ---
 
@@ -118,7 +118,7 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ## 📦 Installation & Links
 
-- **npm Package**: [devtunnel](https://www.npmjs.com/package/devtunnel)
+- **npm Package**: [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli)
 - **GitHub Repository**: [maiz-an/DevTunnel](https://github.com/maiz-an/DevTunnel)
 - **GitHub Pages**: [maiz-an.github.io/DevTunnel](https://maiz-an.github.io/DevTunnel/)
 - **Official Website**: [devtunnel.vercel.app](https://devtunnel.vercel.app)
