@@ -17,10 +17,10 @@ function getPackageVersion() {
     const pkgPath = join(PROJECT_ROOT, "package.json");
     if (existsSync(pkgPath)) {
       const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
-      return pkg.version || "3.0.17";
+      return pkg.version || "3.0.21";
     }
   } catch (err) {}
-  return "3.0.17";
+  return "3.0.21";
 }
 
 // Helper to run command
@@ -251,7 +251,7 @@ async function main() {
   console.log("");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("Repository: https://github.com/maiz-an/DevTunnel");
-  console.log("npm Package: https://www.npmjs.com/package/devtunnel");
+  console.log("npm Package: https://www.npmjs.com/package/devtunnel-cli");
   console.log("Website: https://devtunnel.vercel.app");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("");
