@@ -2,6 +2,11 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.30] - 2026-01-30
+
+### Changed
+- npm package page: ensure latest shows devtunnel-cli.vercel.app and maiz-an/DevTunnel-CLI (README + package.json)
+
 ## [3.0.29] - 2026-01-30
 
 ### Changed
