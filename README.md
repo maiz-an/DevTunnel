@@ -84,11 +84,10 @@ devtunnel-cli
 
 ## 📖 Documentation
 
-Complete docs in `/docs` folder:
-- [Complete Guide](docs/README.md)
 - [Features](docs/FEATURES.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
-- [Deploy / Website](docs/DEPLOY-WEBSITE.md)
+- [Contributing](docs/CONTRIBUTING.md)
+- [License](docs/LICENSE)
 
 ---
 
@@ -120,8 +119,7 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ## 📦 Installation & Links
 
-- **Official Website**: [devtunnel.vercel.app](https://devtunnel.vercel.app)
-- **npm Package**: [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli)
-- **GitHub Repository**: [maiz-an/DevTunnel](https://github.com/maiz-an/DevTunnel)
-- **Documentation**: [docs/README.md](docs/README.md)
+- **Website**: [devtunnel.vercel.app](https://devtunnel.vercel.app)
+- **npm**: [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli)
+- **GitHub**: [maiz-an/DevTunnel](https://github.com/maiz-an/DevTunnel)
 - **Issues**: [GitHub Issues](https://github.com/maiz-an/DevTunnel/issues)

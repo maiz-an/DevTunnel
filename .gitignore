@@ -9,13 +9,8 @@ logs/*.log
 .vscode/
 .idea/
 
-# Website prototype (private - for internal reference only)
-# src/utils/pages/ — un-ignored so index.html can be committed for Vercel
-
 # Bundled binaries (downloaded on first run)
 bin/
 
-# Keep important JSON files
 !package.json
 !package-lock.json
-src/utils/pages/WEBSITE-INFO.md
