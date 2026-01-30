@@ -10,7 +10,7 @@ logs/*.log
 .idea/
 
 # Website prototype (private - for internal reference only)
-src/utils/pages/
+# src/utils/pages/ — un-ignored so index.html can be committed for Vercel/GitHub Pages
 
 # Bundled binaries (downloaded on first run)
 bin/
