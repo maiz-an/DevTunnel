@@ -17,10 +17,10 @@ function getPackageVersion() {
     const pkgPath = join(PROJECT_ROOT, "package.json");
     if (existsSync(pkgPath)) {
       const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
-      return pkg.version || "3.0.24";
+      return pkg.version || "3.0.25";
     }
   } catch (err) {}
-  return "3.0.24";
+  return "3.0.25";
 }
 
 // Helper to run command
@@ -418,12 +418,15 @@ async function main() {
       projectPath = selectedPath;
       projectName = basename(selectedPath);
       
-      // Try to detect port for selected project (Laravel → 8000, Node from package.json, else 5173)
+      // Try to detect port for selected project (Laravel → 8000, HTML → 5500, Node from package.json)
       const selectedPackagePath = join(selectedPath, "package.json");
       const laravelSelected = detectLaravelProject(selectedPath);
+      const htmlSelected = detectHtmlProject(selectedPath);
       const detectedPort = laravelSelected
         ? laravelSelected.defaultPort
-        : detectPortFromPackage(selectedPackagePath);
+        : htmlSelected
+          ? htmlSelected.defaultPort
+          : detectPortFromPackage(selectedPackagePath);
       
       const portResponse = await prompts({
         type: "number",
@@ -438,6 +441,17 @@ async function main() {
       }
       
       devPort = portResponse.port;
+    } else {
+      // User confirmed – let them keep default port or type another (e.g. HTML default 5500, can change)
+      const portPrompt = await prompts({
+        type: "number",
+        name: "port",
+        message: "Dev server port (press Enter for default):",
+        initial: devPort
+      });
+      if (portPrompt.port != null && portPrompt.port > 0) {
+        devPort = portPrompt.port;
+      }
     }
   } else if (autoDetected && !autoDetected.port) {
     // Project detected but no port
