@@ -34,7 +34,10 @@ const server = http.createServer((req, res) => {
     res.end("Method Not Allowed");
     return;
   }
-  let p = path.join(ROOT, path.normalize(req.url).replace(/^\//, "") || ".");
+  // Use only pathname (strip query string and hash) so /style.css?v=1 resolves to style.css
+  const pathname = (req.url || "/").split("?")[0].split("#")[0];
+  const relative = path.normalize(pathname).replace(/^\//, "") || ".";
+  let p = path.join(ROOT, relative);
   if (!path.isAbsolute(p)) p = path.join(ROOT, p);
   if (!p.startsWith(ROOT)) {
     res.writeHead(403, { "Content-Type": "text/plain" });
@@ -66,15 +69,33 @@ function serveFile(filePath, stat, req, res) {
   const ext = path.extname(filePath);
   const contentType = MIME[ext] || "application/octet-stream";
   res.setHeader("Content-Type", contentType);
-  res.setHeader("Content-Length", stat.size);
   if (req.method === "HEAD") {
+    res.setHeader("Content-Length", stat.size);
     res.end();
     return;
   }
+  // For HTML: rewrite absolute localhost URLs so CSS/JS work when viewed through tunnel
+  if (ext === ".html" || ext === ".htm") {
+    try {
+      let body = fs.readFileSync(filePath, "utf8");
+      body = body.replace(/https?:\/\/127\.0\.0\.1:\d+\//g, "/");
+      body = body.replace(/https?:\/\/localhost:\d+\//g, "/");
+      res.setHeader("Content-Length", Buffer.byteLength(body, "utf8"));
+      res.end(body);
+      return;
+    } catch (err) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Internal Server Error");
+      return;
+    }
+  }
+  res.setHeader("Content-Length", stat.size);
   const stream = fs.createReadStream(filePath);
   stream.on("error", () => {
-    res.writeHead(500, { "Content-Type": "text/plain" });
-    res.end("Internal Server Error");
+    if (!res.headersSent) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Internal Server Error");
+    }
   });
   stream.pipe(res);
 }
