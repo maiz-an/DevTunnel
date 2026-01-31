@@ -17,10 +17,10 @@ function getPackageVersion() {
     const pkgPath = join(PROJECT_ROOT, "package.json");
     if (existsSync(pkgPath)) {
       const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
-      return pkg.version || "3.0.33";
+      return pkg.version || "3.0.34";
     }
   } catch (err) {}
-  return "3.0.33";
+  return "3.0.34";
 }
 
 // Helper to run command
@@ -272,7 +272,7 @@ async function main() {
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("Repository: https://github.com/maiz-an/DevTunnel-CLI");
   console.log("npm Package: https://www.npmjs.com/package/devtunnel-cli");
-  console.log("Website: https://devtunnel-cli.mzieos.com");
+  console.log("Website: https://maizan.me/devtunnel-cli");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("");
 

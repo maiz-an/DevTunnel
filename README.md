@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/maiz-an/DevTunnel-CLI)
 [![npm version](https://img.shields.io/npm/v/devtunnel-cli)](https://www.npmjs.com/package/devtunnel-cli)
 
-🌐 **Website:** [devtunnel-cli.mzieos.com](https://devtunnel-cli.mzieos.com) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub:** [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
+🌐 **Website:** [maizan.me/devtunnel-cli](https://maizan.me/devtunnel-cli) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub:** [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
 
 ---
 
@@ -108,19 +108,19 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ---
 
-**Latest on [npm](https://www.npmjs.com/package/devtunnel-cli)** | Made with ❤️ for developers worldwide
+**Latest on [npm](https://www.npmjs.com/package/devtunnel-cli)** | Made with ❤︎ for developers worldwide
 
 ---
 
 ## 🔍 Search keywords
 
-Find this project as: **DevTunnel**, **devtunnel**, **dev-tunnel**, **Dev-Tunnel**, **DevTunnel-CLI**, **devtunnel-cli**, **dev-tunnel-cli**, **Dev-Tunnel-CLI**. Official site: [devtunnel-cli.mzieos.com](https://devtunnel-cli.mzieos.com) · GitHub: [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI) · npm: [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli).
+Find this project as: **DevTunnel**, **devtunnel**, **dev-tunnel**, **Dev-Tunnel**, **DevTunnel-CLI**, **devtunnel-cli**, **dev-tunnel-cli**, **Dev-Tunnel-CLI**. npm (install here): [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) · Docs: [maizan.me/devtunnel-cli](https://maizan.me/devtunnel-cli) · GitHub: [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI).
 
 ---
 
 ## 📦 Links
 
-- **Website**: [devtunnel-cli.mzieos.com](https://devtunnel-cli.mzieos.com)
+- **Website**: [maizan.me/devtunnel-cli](https://maizan.me/devtunnel-cli)
 - **npm**: [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli)
 - **GitHub**: [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
 - **Issues**: [GitHub Issues](https://github.com/maiz-an/DevTunnel-CLI/issues)

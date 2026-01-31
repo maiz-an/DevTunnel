@@ -2,6 +2,12 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.34] - 2026-01-30
+
+### Changed
+- **Website URL** - Now at maizan.me/devtunnel-cli (proxied from portfolio). Old domain redirects to new URL for SEO continuity.
+- **README/package** - Homepage and all links updated to maizan.me/devtunnel-cli. npm emphasized as primary install source.
+
 ## [3.0.33] - 2026-01-30
 
 ### Changed
