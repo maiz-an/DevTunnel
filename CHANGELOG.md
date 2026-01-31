@@ -2,6 +2,11 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.0.32] - 2026-01-30
+
+### Changed
+- **Official domain** - Website: https://www.devtunnel-cli.mzieos.com (all references updated in CLI repo + website repo)
+
 ## [3.0.31] - 2026-01-30
 
 ### Changed
@@ -12,12 +17,12 @@ All notable changes to DevTunnel will be documented in this file.
 ## [3.0.30] - 2026-01-30
 
 ### Changed
-- npm package page: ensure latest shows devtunnel-cli.vercel.app and maiz-an/DevTunnel-CLI (README + package.json)
+- npm package page: ensure latest shows www.devtunnel-cli.mzieos.com and maiz-an/DevTunnel-CLI (README + package.json)
 
 ## [3.0.29] - 2026-01-30
 
 ### Changed
-- **Repo & website rename** - GitHub: maiz-an/DevTunnel-CLI, website: devtunnel-cli.vercel.app (npm package page updated)
+- **Repo & website rename** - GitHub: maiz-an/DevTunnel-CLI, website: www.devtunnel-cli.mzieos.com (npm package page updated)
 
 ## [3.0.28] - 2026-01-30
 
@@ -262,7 +267,7 @@ All notable changes to DevTunnel will be documented in this file.
 - **Improved UI** - Consistent, professional box designs across all platforms
 - **Dynamic Path Detection** - Works with any folder name, handles paths with spaces
 - **Security Policy** - Added SECURITY.md and CODE_OF_CONDUCT.md
-- **Website** - Professional landing page at devtunnel-cli.vercel.app
+- **Website** - Professional landing page at www.devtunnel-cli.mzieos.com
 
 #### Changed
 - Refactored to ES modules for better compatibility
