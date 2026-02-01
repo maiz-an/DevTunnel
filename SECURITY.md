@@ -21,42 +21,37 @@ If you discover a security vulnerability in DevTunnel, please report it by:
 
 We will respond within 48 hours and work to fix the issue promptly.
 
-## Security Considerations
+## Security Highlights
 
-### What DevTunnel Does:
-- Downloads Cloudflare binary from official GitHub releases
-- Creates tunnels to localhost only
-- No data collection or tracking
-- Open source - all code is auditable
+DevTunnel-CLI is open source and designed to make local development sharing simple and transparent. Key highlights:
 
-### What DevTunnel Does NOT Do:
-- Does not access files outside project folder
-- Does not modify system settings
-- Does not require admin/root privileges
-- Does not send data to third parties
-- Does not store credentials
+- Downloads Cloudflare binary from official releases over HTTPS
+- Tunnels connect to localhost endpoints only
+- No built-in telemetry — repository is auditable
+- Runtime artifacts are kept in the project folder by default
 
-### Safe Usage:
-✅ Only share tunnel URLs with trusted people
-✅ Stop tunnel when done (Ctrl+C)
-✅ Your local server security is your responsibility
-✅ Use firewall if exposing sensitive services
+## Safe Usage Guidance
 
-### Binary Downloads:
-- Source: GitHub official releases only
-- Protocol: HTTPS only
-- Verification: File size and execution test
-- Storage: Local project folder only
+- Share session URLs only with collaborators who need access
+- Stop tunnels when a session ends (Ctrl+C)
+- Consider adding authentication to your application if you need gated access
+- Use local network controls (firewall) when exposing sensitive development services
+
+### Binary Handling
+
+- Source: official GitHub releases
+- Transport: HTTPS
+- Verification: basic file checks and execution test are performed
 
 ## Best Practices
 
-1. **Keep Updated:** Use latest DevTunnel version
-2. **Secure Your Server:** Tunnel only exposes what's already on localhost
-3. **Use Authentication:** Add auth to your dev server if needed
-4. **Monitor Access:** Be aware of who has your tunnel URL
-5. **Close Tunnels:** Stop tunnel when not in use
+1. **Keep Updated:** Use the latest DevTunnel release
+2. **Secure Your Server:** Ensure the local service you expose is configured securely
+3. **Consider App-level Auth:** Add authentication at the app level when needed
+4. **Monitor Sessions:** Be mindful of who has session URLs during collaboration
+5. **Close Tunnels:** End tunnels when not actively using them
 
 ## Questions?
 
 For security questions, open a discussion at:
-https://github.com/maiz-an/DevTunnel-CLI/discussions
+<https://github.com/maiz-an/DevTunnel-CLI/discussions>

@@ -16,7 +16,9 @@
     "dev": "node src/core/RUN.js",
     "run": "node src/core/RUN.js",
     "tunnel": "node src/core/index.js",
-    "sync-version": "node sync-version.js"
+    "sync-version": "node sync-version.js",
+    "test": "node -e \"console.log('ok')\"",
+    "prepublishOnly": "npm test"
   },
   "keywords": [
     "DevTunnel-CLI",

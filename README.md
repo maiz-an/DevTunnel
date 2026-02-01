@@ -14,10 +14,7 @@
 
 DevTunnel-CLI is designed for **DEVELOPMENT**, **TESTING**, **DEMOS**, and **WEBHOOK DEBUGGING**. It provides fast, frictionless access to your local dev servers from anywhere.
 
-**This tool is NOT intended for:**
-- Production environments
-- Long-lived public services
-- Hosting production traffic
+DevTunnel-CLI is optimized for development workflows — rapid sharing, demos, and debugging. For production-facing use, consider managed or enterprise tunnel solutions that provide governance, identity, and long-lived endpoints.
 
 DevTunnel-CLI is built for developers who need instant, temporary public URLs to share work-in-progress, test on mobile devices, demo features to clients, or debug webhooks from third-party services.
 
@@ -28,16 +25,19 @@ DevTunnel-CLI is built for developers who need instant, temporary public URLs to
 ### Step-by-Step Guide
 
 **1. Install DevTunnel (one-time setup):**
+
 ```bash
 npm install -g devtunnel-cli
 ```
 
 **2. Navigate to your project directory:**
+
 ```bash
 cd your-project
 ```
 
 **3. Have your app running (in one terminal):**
+
 ```bash
 npm run dev
 # OR  php artisan serve   (Laravel)
@@ -46,6 +46,7 @@ npm run dev
 ```
 
 **4. Run DevTunnel (in another terminal, same directory):**
+
 ```bash
 cd your-project  # Same directory as your project
 devtunnel-cli    # Auto-detects project type and port!
@@ -63,7 +64,7 @@ devtunnel-cli    # Auto-detects project type and port!
 - 🌍 **Cross-Platform** - Windows, macOS, Linux
 - 🚀 **Any Framework** - Node, React, Laravel, plain HTML, PHP/XAMPP
 - 📄 **HTML** - Default port 5500; built-in static server if none running
-- 🐘 **PHP/XAMPP** - Port 80; supports htdocs subfolders (e.g. http://localhost/YourProject/)
+- 🐘 **PHP/XAMPP** - Port 80; supports htdocs subfolders (e.g. <http://localhost/YourProject/>)
 - 🔄 **Multi-Service** - Cloudflare, Ngrok, LocalTunnel fallback
 - 🔌 **Multiple Ports** - DevTunnel-CLI supports multiple ports; auto-detects or lets you choose
 - 📹 **Streaming Support** - Handles video/audio files (with limitations for large files)
@@ -82,6 +83,7 @@ devtunnel-cli    # Auto-detects project type and port!
 6. **Get your public URL** and share it! 🌍
 
 **Example (Node):**
+
 ```bash
 # Terminal 1
 cd my-react-app

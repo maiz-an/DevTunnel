@@ -3,12 +3,14 @@
 ## 🎯 Purpose & Scope
 
 DevTunnel-CLI is a development tool designed for:
+
 - **Development & Testing**: Share local work with teammates
 - **Mobile Testing**: Test apps on real devices without deployment
 - **Client Demos**: Show work-in-progress features instantly
 - **Webhook Debugging**: Test third-party webhooks on localhost
 
 **This tool is intentionally NOT designed for:**
+
 - Production environments
 - Long-lived public services
 - Hosting production traffic
@@ -31,6 +33,7 @@ DevTunnel-CLI is a development tool designed for:
 **Problem:** Vite/React blocks requests from unknown hosts
 
 **Solution:** DevTunnel creates a proxy server that:
+
 - Sits between tunnel and your dev server
 - Forwards all requests transparently
 - Handles WebSocket for HMR (Hot Module Reload)
@@ -38,6 +41,7 @@ DevTunnel-CLI is a development tool designed for:
 - **No config changes needed!**
 
 **How it works:**
+
 ```
 Internet → Cloudflare Tunnel → Proxy → Your Dev Server
           (Port 4000)          (Port 3000)
@@ -46,15 +50,18 @@ Internet → Cloudflare Tunnel → Proxy → Your Dev Server
 ### 🌍 Cross-Platform Support
 
 **Windows:**
+
 - Modern folder picker (Windows 11 style)
 - `winget` auto-installation
 
 **macOS:**
+
 - Native folder dialog
 - Shell script launchers
 - Homebrew compatible
 
 **Linux:**
+
 - Zenity/KDialog dialogs
 - Shell script launchers
 - Works on all major distros
@@ -83,6 +90,7 @@ Automatically tries services in order:
 Get shareable URLs instantly:
 
 Output:
+
 ```
 ╔═══════════════════════════════════════════════════╗
 ║ ✅ PUBLIC URL                                    ║
@@ -94,6 +102,7 @@ Output:
 ```
 
 **Benefits:**
+
 - No configuration needed
 - Works immediately
 - Share with anyone
@@ -109,6 +118,7 @@ Output:
 ### 🎯 Framework Agnostic
 
 Works with ANY framework and backend:
+
 - ✅ **Frontend:** Vite, React, Vue, Next.js, Angular, Svelte
 - ✅ **Backend:** Express, NestJS, Fastify, Koa, Hapi
 - ✅ **Python:** FastAPI, Flask, Django, Tornado
@@ -130,12 +140,14 @@ Works with ANY framework and backend:
 Run multiple instances simultaneously:
 
 **Terminal 1:**
+
 ```bash
 npm start
 # Select Backend (Port 3000)
 ```
 
 **Terminal 2:**
+
 ```bash
 npm start
 # Select Frontend (Port 5173)
@@ -152,6 +164,7 @@ Each gets its own public URL!
 ### WebSocket Support
 
 Full WebSocket proxying for:
+
 - Vite HMR (Hot Module Reload)
 - Socket.io
 - Real-time features
@@ -160,6 +173,7 @@ Full WebSocket proxying for:
 ### File Streaming Support
 
 DevTunnel supports streaming large files:
+
 - ✅ Video files (MP4, WebM, etc.)
 - ✅ Audio files
 - ✅ Large downloads
@@ -170,6 +184,7 @@ DevTunnel supports streaming large files:
 ### CORS Handling
 
 Automatic CORS headers:
+
 ```javascript
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: *
@@ -211,6 +226,7 @@ Works with any frontend!
 | Max connections | Limited by Cloudflare |
 
 **Tips for best performance:**
+
 1. Use Cloudflare (fastest tunnel)
 2. Keep dev server and tunnel on same machine
 3. Use wired connection over WiFi
@@ -218,57 +234,37 @@ Works with any frontend!
 
 ---
 
-## 🔒 Security & Access Model
+## Access & Usage
 
-**Intentional Design Choices:**
+DevTunnel-CLI is built for fast, frictionless sharing during development. It provides temporary public endpoints that make it simple to share local servers and collaborate in real time.
 
-### No Authentication (By Design)
-- DevTunnel-CLI intentionally does NOT use authentication or access control
-- This is a deliberate choice to ensure fast, frictionless development workflows
-- Access is granted by **URL possession only** — anyone with the URL can access the tunnel
+### How Access Works
 
-### Temporary URL Behavior
-- URLs are **short-lived** and **unlisted**
-- New random URLs generated each session
-- URLs are **destroyed** when the tunnel stops
-- Not indexed by search engines
+- Public URLs are created per session and are short-lived by design
+- Each run generates a fresh random URL that is valid while the tunnel is running
+- URLs are unlisted and removed when the tunnel stops
 
-### Why This Design?
-- **Instant sharing**: No account setup, no login flows
-- **Zero friction**: Run one command and share immediately
-- **Maximum speed**: Perfect for rapid development and testing
+### Design Goals
 
-### Best Practices
-- ✅ Only share URLs with trusted collaborators
-- ✅ Stop tunnels when not in use
-- ✅ Never expose sensitive data or production databases
-- ✅ Use only for development and testing
+- Instant sharing: get a public URL with one command
+- Zero configuration: no account or setup required to start sharing
+- Focused on rapid development workflows, demos, and testing
+
+### Recommended Usage
+
+- Share URLs with collaborators when testing or reviewing changes
+- Stop tunnels when a session is finished to avoid accidental exposure
+- For gated access, integrate authentication at the application layer or use an enterprise tunnel solution
 
 ---
 
-## ⚠️ Limitations & Design Constraints
+## Design Notes & Usage Guidance
 
-DevTunnel-CLI has intentional limitations that optimize it for development speed:
+DevTunnel-CLI optimizes for simplicity and speed in development scenarios. Below are concise notes to help you get the best experience.
 
-### Intentional Limitations
-- **No identity-based access control** — Anyone with the URL can access
-- **No user-level permission management** — All or nothing access model
-- **Not suitable for production** — Designed for temporary development use only
-- **Temporary URLs only** — URLs do not persist across sessions
-
-### What DevTunnel-CLI IS
-- ✅ A rapid development tool
-- ✅ Perfect for testing and demos
-- ✅ Ideal for webhook debugging
-- ✅ Great for team collaboration
-
-### What DevTunnel-CLI IS NOT
-- ❌ A production hosting solution
-- ❌ An authentication/authorization system
-- ❌ A permanent URL service
-- ❌ An enterprise-grade tunnel with governance
-
----
+- **Ideal For:** rapid development, local demos, webhook testing, device testing
+- **For Production:** consider managed or enterprise tunnels that provide governance and identity controls
+- **Session URLs:** ephemeral and regenerated each run to keep sessions isolated
 
 ## 🆚 DevTunnel-CLI vs. Enterprise Tunnels
 
@@ -277,18 +273,20 @@ DevTunnel-CLI has intentional limitations that optimize it for development speed
 
 | Aspect | DevTunnel-CLI | Enterprise Tunnels |
 |--------|---------------|-------------------|
-| **Authentication** | None (by design) | Required (SSO, OAuth, identity) |
+| **Authentication** | URL-based instant sharing | Required (SSO, OAuth, identity) |
 | **Access Control** | URL possession only | User/group-based permissions |
 | **Setup Time** | Instant (0 config) | Requires account & auth setup |
 | **Use Case** | Dev, testing, demos | Enterprise dev, compliance |
 | **Ideal For** | Speed & simplicity | Governance & audit trails |
 
 **Use DevTunnel-CLI when:**
+
 - You need instant, frictionless sharing
 - You're working on non-sensitive projects
 - Speed is more important than governance
 
 **Use enterprise tunnels when:**
+
 - You need identity-based access control
 - Your org requires audit logs and compliance
 - You're in a regulated industry
