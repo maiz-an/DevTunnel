@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/maiz-an/DevTunnel-CLI)
 [![npm version](https://img.shields.io/npm/v/devtunnel-cli)](https://www.npmjs.com/package/devtunnel-cli)
 
-🌐 **Website:** [maizan.me/devtunnel-cli](https://maizan.me/devtunnel-cli) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub:** [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
+🌐 **Website:** [devtunnel-cli.vercel.app](https://devtunnel-cli.vercel.app) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub:** [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
 
 ---
 
@@ -213,13 +213,13 @@ MIT License - see [LICENSE](docs/LICENSE)
 
 ## 🔍 Search keywords
 
-Find this project as: **DevTunnel**, **devtunnel**, **dev-tunnel**, **Dev-Tunnel**, **DevTunnel-CLI**, **devtunnel-cli**, **dev-tunnel-cli**, **Dev-Tunnel-CLI**. npm (install here): [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) · Docs: [maizan.me/devtunnel-cli](https://maizan.me/devtunnel-cli) · GitHub: [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI).
+Find this project as: **DevTunnel**, **devtunnel**, **dev-tunnel**, **Dev-Tunnel**, **DevTunnel-CLI**, **devtunnel-cli**, **dev-tunnel-cli**, **Dev-Tunnel-CLI**. npm (install here): [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) · Docs: [devtunnel-cli.vercel.app](https://devtunnel-cli.vercel.app) · GitHub: [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI).
 
 ---
 
 ## 📦 Links
 
-- **Website**: [maizan.me/devtunnel-cli](https://maizan.me/devtunnel-cli)
+- **Website**: [devtunnel-cli.vercel.app](https://devtunnel-cli.vercel.app)
 - **npm**: [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli)
 - **GitHub**: [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
 - **Issues**: [GitHub Issues](https://github.com/maiz-an/DevTunnel-CLI/issues)
