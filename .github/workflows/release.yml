@@ -23,7 +23,7 @@ jobs:
           body: |
             ## Install
             ```bash
-            npm install -g devtunnel-cli
+            npm i -g devtunnel-cli
             ```
             Then run `devtunnel-cli` from your project directory.
             

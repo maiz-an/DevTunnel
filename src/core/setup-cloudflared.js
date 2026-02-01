@@ -69,7 +69,7 @@ async function isAdmin() {
   if (process.platform !== 'win32') {
     return process.getuid && process.getuid() === 0;
   }
-  
+
   try {
     const { stdout } = await execAsync('net session');
     return stdout.length > 0;
@@ -84,7 +84,7 @@ function showPermissionSolutions(dirPath) {
     console.log('   1. Run terminal as Administrator (Right-click → Run as administrator)');
     console.log('   2. DevTunnel will automatically request admin privileges if needed');
   } else {
-        console.log('   1. Run with sudo: sudo npm install -g devtunnel-cli');
+    console.log('   1. Run with sudo: sudo npm i -g devtunnel-cli');
   }
   console.log('   2. Check if antivirus is blocking file writes');
   console.log('   3. Check folder permissions for:', dirPath);
@@ -104,10 +104,10 @@ function downloadFile(url, dest, retryCount = 0) {
     }
 
     const tempDest = dest + '.download';
-    
+
     // Clean up any existing temp file first
     safeUnlink(tempDest);
-    
+
     let file;
     try {
       file = fs.createWriteStream(tempDest);
@@ -119,9 +119,9 @@ function downloadFile(url, dest, retryCount = 0) {
       }
       return;
     }
-    
-    const request = https.get(url, { 
-      headers: { 
+
+    const request = https.get(url, {
+      headers: {
         'User-Agent': 'DevTunnel/3.0',
         'Accept': '*/*'
       },
@@ -170,9 +170,9 @@ function downloadFile(url, dest, retryCount = 0) {
               fs.unlinkSync(dest);
             }
             fs.renameSync(tempDest, dest);
-            
+
             console.log('\n✅ Download complete');
-            
+
             // Make executable on Unix-like systems
             if (process.platform !== 'win32') {
               try {
@@ -183,7 +183,7 @@ function downloadFile(url, dest, retryCount = 0) {
                 console.log('   Run: chmod +x ' + dest);
               }
             }
-            
+
             // Verify file size
             const stats = fs.statSync(dest);
             if (stats.size < 1000000) { // Less than 1MB is suspicious
@@ -191,7 +191,7 @@ function downloadFile(url, dest, retryCount = 0) {
               reject(new Error('Downloaded file is too small (corrupted)'));
               return;
             }
-            
+
             resolve();
           } catch (err) {
             reject(new Error(`Cannot finalize download: ${err.message}`));
@@ -230,30 +230,30 @@ async function downloadWithRetry(urls, dest, maxRetries = 3) {
   for (let urlIndex = 0; urlIndex < urls.length; urlIndex++) {
     const url = urls[urlIndex];
     console.log(`📥 Source: ${urlIndex === 0 ? 'GitHub' : 'Mirror'} (${urlIndex + 1}/${urls.length})`);
-    
+
     for (let retry = 0; retry < maxRetries; retry++) {
       try {
         if (retry > 0) {
           console.log(`🔄 Retry ${retry}/${maxRetries - 1}...`);
           await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2s before retry
         }
-        
+
         await downloadFile(url, dest, retry);
         return true; // Success!
-        
+
       } catch (err) {
         const isLastRetry = retry === maxRetries - 1;
         const isLastUrl = urlIndex === urls.length - 1;
-        
+
         if (err.message.includes('Permission denied') || err.message.includes('EPERM') || err.message.includes('EACCES')) {
           console.log(`\n❌ Permission Error: ${err.message}`);
-          
+
           if (process.platform === 'win32' && retry === 0) {
             const admin = await isAdmin();
             if (!admin) {
               console.log('\n🔐 Attempting to request administrator privileges...');
               console.log('   Please click "Yes" on the UAC prompt\n');
-              
+
               try {
                 const nodePath = process.execPath;
                 const scriptPath = process.argv[1];
@@ -266,16 +266,16 @@ async function downloadWithRetry(urls, dest, maxRetries = 3) {
                   stdio: 'inherit',
                   shell: false
                 });
-                
+
                 proc.on('close', () => {
                   process.exit(0);
                 });
-                
+
                 proc.on('error', () => {
                   console.log('\n⚠️  Could not elevate privileges automatically');
                   showPermissionSolutions(path.dirname(dest));
                 });
-                
+
                 return false;
               } catch {
                 showPermissionSolutions(path.dirname(dest));
@@ -283,7 +283,7 @@ async function downloadWithRetry(urls, dest, maxRetries = 3) {
               }
             }
           }
-          
+
           showPermissionSolutions(path.dirname(dest));
           throw err;
         } else if (err.message.includes('ENOTFOUND') || err.message.includes('ECONNREFUSED')) {
@@ -293,11 +293,11 @@ async function downloadWithRetry(urls, dest, maxRetries = 3) {
         } else {
           console.log(`\n❌ Error: ${err.message}`);
         }
-        
+
         if (isLastRetry && isLastUrl) {
           throw new Error(`All download attempts failed: ${err.message}`);
         }
-        
+
         if (isLastRetry) {
           console.log('💡 Trying alternative source...\n');
           break;
@@ -305,18 +305,18 @@ async function downloadWithRetry(urls, dest, maxRetries = 3) {
       }
     }
   }
-  
+
   throw new Error('All download sources failed');
 }
 
 export async function setupCloudflared() {
   const platform = process.platform;
   const binaryPath = getBinaryPath();
-  
+
   console.log('\n╔════════════════════════════════════════╗');
   console.log('║   📦 Cloudflare Setup (First Run)    ║');
   console.log('╚════════════════════════════════════════╝\n');
-  
+
   // Check if binary already exists
   if (fs.existsSync(binaryPath)) {
     try {
@@ -327,7 +327,7 @@ export async function setupCloudflared() {
         testProc.on('error', () => resolve(false));
         setTimeout(() => resolve(false), 5000);
       });
-      
+
       if (works) {
         console.log('✅ Cloudflare already installed and working\n');
         return binaryPath;
@@ -351,13 +351,13 @@ export async function setupCloudflared() {
   console.log(`🖥️  Platform: ${getPlatformName()}`);
   console.log(`📍 Install to: ${binaryPath}`);
   console.log(`📊 Size: ~40 MB\n`);
-  
+
   // Check disk space
   if (!hasEnoughDiskSpace()) {
     console.error('❌ ERROR: Not enough disk space (need 50+ MB)\n');
     return null;
   }
-  
+
   // Check write permissions
   try {
     const dir = path.dirname(binaryPath);
@@ -373,12 +373,12 @@ export async function setupCloudflared() {
     console.error(`   Reason: ${err.message}\n`);
     return null;
   }
-  
+
   console.log('📥 Starting download...\n');
-  
+
   try {
     await downloadWithRetry(urls, binaryPath);
-    
+
     // Final verification
     console.log('\n🔍 Verifying installation...');
     const testProc = spawn(binaryPath, ['--version'], { shell: true, stdio: 'pipe' });
@@ -387,7 +387,7 @@ export async function setupCloudflared() {
       testProc.on('error', () => resolve(false));
       setTimeout(() => resolve(false), 5000);
     });
-    
+
     if (works) {
       console.log('✅ Verification successful!');
       console.log('✅ Cloudflare ready to use\n');
@@ -397,13 +397,13 @@ export async function setupCloudflared() {
       safeUnlink(binaryPath);
       return null;
     }
-    
+
   } catch (err) {
     console.error('\n╔════════════════════════════════════════╗');
     console.error('║   ❌ Installation Failed              ║');
     console.error('╚════════════════════════════════════════╝\n');
     console.error(`Reason: ${err.message}\n`);
-    
+
     if (err.message.includes('Permission denied') || err.message.includes('EPERM') || err.message.includes('EACCES')) {
       showPermissionSolutions(path.dirname(binaryPath));
     } else {
@@ -413,9 +413,9 @@ export async function setupCloudflared() {
       console.log('   3. Try running as administrator');
       console.log('   4. Install manually: https://github.com/cloudflare/cloudflared/releases\n');
     }
-    
+
     console.log('🔄 DevTunnel will use fallback tunnels (Ngrok/LocalTunnel)\n');
-    
+
     return null;
   }
 }

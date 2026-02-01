@@ -27,7 +27,7 @@ DevTunnel-CLI is built for developers who need instant, temporary public URLs to
 **1. Install DevTunnel (one-time setup):**
 
 ```bash
-npm install -g devtunnel-cli
+npm i -g devtunnel-cli
 ```
 
 **2. Navigate to your project directory:**
@@ -75,7 +75,7 @@ devtunnel-cli    # Auto-detects project type and port!
 
 **Important:** Run `devtunnel-cli` from the same directory as your project!
 
-1. **Install DevTunnel** (one-time): `npm install -g devtunnel-cli`
+1. **Install DevTunnel** (one-time): `npm i -g devtunnel-cli`
 2. **Go to your project**: `cd your-project` (Node, Laravel, HTML, or XAMPP folder)
 3. **Have your app running**: `npm run dev`, `php artisan serve`, or XAMPP. For HTML, optional — DevTunnel can serve it.
 4. **Open a new terminal** in the same project directory
