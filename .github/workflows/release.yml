@@ -87,23 +87,6 @@ jobs:
             devtunnel-cli-${{ steps.ver.outputs.VERSION }}-darwin-arm64.tar.gz
             devtunnel-cli_${{ steps.ver.outputs.VERSION }}_amd64.deb
           body: |
-            ## Install (standalone — no Node required)
-
-            | Platform | Command |
-            | -------- | ------- |
-            | **Windows** | `winget install devtunnel-cli` or download the portable zip below |
-            | **macOS** | `brew install devtunnel-cli` or download the darwin tarball for your arch |
-            | **Linux (Debian/Ubuntu)** | Run the [install script](https://raw.githubusercontent.com/maiz-an/DevTunnel-CLI/main/scripts/install.sh) once, then `sudo apt install devtunnel-cli` |
-            | **Other Linux** | Use the install script or download the linux tarball below |
-            | **npm** | `npm i -g devtunnel-cli` (requires Node.js) |
-
-            Then run `devtunnel-cli` from your project directory.
-
-            ## Features
-            - Zero config, auto-detects project and port
-            - Node, React, Laravel, HTML, PHP/XAMPP
-            - Cloudflare, Ngrok, LocalTunnel fallback
-
-            **Website:** https://devtunnel-cli.vercel.app · **GitHub:** https://github.com/maiz-an/DevTunnel-CLI
+            See [README](https://github.com/maiz-an/DevTunnel-CLI#readme) for install and usage.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
