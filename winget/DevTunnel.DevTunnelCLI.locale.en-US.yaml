@@ -1,6 +1,6 @@
 # WinGet default locale manifest for DevTunnel-CLI
 PackageIdentifier: DevTunnel.DevTunnelCLI
-PackageVersion: 3.1.0
+PackageVersion: 3.1.1
 PackageLocale: en-US
 Publisher: DevTunnel
 PublisherUrl: https://devtunnel-cli.vercel.app

@@ -5,7 +5,7 @@
 class DevtunnelCli < Formula
   desc "Share your local dev servers worldwide - Zero config tunnel"
   homepage "https://devtunnel-cli.vercel.app"
-  version = "3.1.0"
+  version = "3.1.1"
   arch = Hardware::CPU.arm? ? "arm64" : "x64"
   url "https://github.com/maiz-an/DevTunnel-CLI/releases/download/v#{version}/devtunnel-cli-#{version}-darwin-#{arch}.tar.gz"
   sha256 :no_check
