@@ -14,9 +14,7 @@
 
 DevTunnel-CLI is designed for **DEVELOPMENT**, **TESTING**, **DEMOS**, and **WEBHOOK DEBUGGING**. It provides fast, frictionless access to your local dev servers from anywhere.
 
-DevTunnel-CLI is optimized for development workflows — rapid sharing, demos, and debugging. For production-facing use, consider managed or enterprise tunnel solutions that provide governance, identity, and long-lived endpoints.
-
-DevTunnel-CLI is built for developers who need instant, temporary public URLs to share work-in-progress, test on mobile devices, demo features to clients, or debug webhooks from third-party services.
+DevTunnel-CLI is built for developers who need instant public URLs to share work-in-progress, test on mobile devices, demo features to clients, or debug webhooks from third-party services.
 
 ---
 
@@ -67,7 +65,7 @@ devtunnel-cli    # Auto-detects project type and port!
 - 🐘 **PHP/XAMPP** - Port 80; supports htdocs subfolders (e.g. <http://localhost/YourProject/>)
 - 🔄 **Multi-Service** - Cloudflare, Ngrok, LocalTunnel fallback
 - 🔌 **Multiple Ports** - DevTunnel-CLI supports multiple ports; auto-detects or lets you choose
-- 📹 **Streaming Support** - Handles video/audio files (with limitations for large files)
+- 📹 **Streaming Support** - Handles video/audio files
 
 ---
 

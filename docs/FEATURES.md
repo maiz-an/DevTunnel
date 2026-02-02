@@ -9,13 +9,6 @@ DevTunnel-CLI is a development tool designed for:
 - **Client Demos**: Show work-in-progress features instantly
 - **Webhook Debugging**: Test third-party webhooks on localhost
 
-**This tool is intentionally NOT designed for:**
-
-- Production environments
-- Long-lived public services
-- Hosting production traffic
-- Applications requiring authentication
-
 ---
 
 ## Core Features
@@ -178,8 +171,6 @@ DevTunnel supports streaming large files:
 - ✅ Audio files
 - ✅ Large downloads
 - ✅ Progressive loading
-- ⚠️ **Note**: Cloudflare free tier has limitations for very large files (>100MB)
-- ⚠️ **Note**: Streaming may timeout for files >50MB depending on connection speed
 
 ### CORS Handling
 
@@ -234,92 +225,22 @@ Works with any frontend!
 
 ---
 
-## Access & Usage
+## Access & Sharing
 
-DevTunnel-CLI is built for fast, frictionless sharing during development. It provides temporary public endpoints that make it simple to share local servers and collaborate in real time.
+DevTunnel-CLI is built for fast, frictionless sharing during development.
 
-### How Access Works
+### How It Works
 
-- Public URLs are created per session and are short-lived by design
-- Each run generates a fresh random URL that is valid while the tunnel is running
-- URLs are unlisted and removed when the tunnel stops
+- Get a public URL instantly with one command
+- Share with teammates, clients, or test on any device
+- Zero configuration — no account or setup required
+- URLs are created per session and regenerated each run
 
-### Design Goals
+### Why Developers Love It
 
-- Instant sharing: get a public URL with one command
-- Zero configuration: no account or setup required to start sharing
-- Focused on rapid development workflows, demos, and testing
-
-### Recommended Usage
-
-- Share URLs with collaborators when testing or reviewing changes
-- Stop tunnels when a session is finished to avoid accidental exposure
-- For gated access, integrate authentication at the application layer or use an enterprise tunnel solution
-
----
-
-## Design Notes & Usage Guidance
-
-DevTunnel-CLI optimizes for simplicity and speed in development scenarios. Below are concise notes to help you get the best experience.
-
-- **Ideal For:** rapid development, local demos, webhook testing, device testing
-- **For Production:** consider managed or enterprise tunnels that provide governance and identity controls
-- **Session URLs:** ephemeral and regenerated each run to keep sessions isolated
-
-## 🆚 DevTunnel-CLI vs. Enterprise Tunnels
-
-**DevTunnel-CLI** is optimized for **speed and simplicity**.
-**Enterprise tunnels** (e.g., Microsoft Dev Tunnels) are optimized for **governance and security**.
-
-| Aspect | DevTunnel-CLI | Enterprise Tunnels |
-|--------|---------------|-------------------|
-| **Authentication** | URL-based instant sharing | Required (SSO, OAuth, identity) |
-| **Access Control** | URL possession only | User/group-based permissions |
-| **Setup Time** | Instant (0 config) | Requires account & auth setup |
-| **Use Case** | Dev, testing, demos | Enterprise dev, compliance |
-| **Ideal For** | Speed & simplicity | Governance & audit trails |
-
-**Use DevTunnel-CLI when:**
-
-- You need instant, frictionless sharing
-- You're working on non-sensitive projects
-- Speed is more important than governance
-
-**Use enterprise tunnels when:**
-
-- You need identity-based access control
-- Your org requires audit logs and compliance
-- You're in a regulated industry
-
----
-
-## Limitations & Notes
-
-### File Size & Streaming
-
-- ✅ **Small files (<10MB)**: Works perfectly
-- ✅ **Medium files (10-50MB)**: Works well, may have slight delays
-- ⚠️ **Large files (>50MB)**: May timeout depending on connection speed
-- ⚠️ **Very large files (>100MB)**: Not recommended for Cloudflare free tier
-
-### Streaming Video/Audio
-
-- ✅ **Short videos (<5 minutes)**: Works great
-- ⚠️ **Long videos (>10 minutes)**: May experience interruptions
-- 💡 **Tip**: For large media files, consider using a CDN or cloud storage instead
-
-### Cloudflare Free Tier Limits
-
-- Request timeout: ~100 seconds
-- Connection limits apply
-- Best for development/testing, not production
-
-### Best Practices
-
-1. **For development**: DevTunnel is perfect! ✅
-2. **For production**: Use proper hosting/CDN
-3. **For large files**: Use cloud storage (S3, Cloudflare R2, etc.)
-4. **For video streaming**: Use dedicated video hosting (Vimeo, YouTube, etc.)
+- **Instant sharing**: One command, share anywhere
+- **Zero config**: Works with any project immediately
+- **Perfect for**: Development, demos, webhook testing, mobile testing, team collaboration
 
 ---
 
