@@ -8,6 +8,8 @@
 
 🌐 **Website:** [devtunnel-cli.vercel.app](https://devtunnel-cli.vercel.app) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub:** [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
 
+**Install (global):** `npm i -g devtunnel-cli`
+
 ---
 
 ## 🎯 Purpose & Scope
