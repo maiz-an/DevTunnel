@@ -18,7 +18,8 @@
     "tunnel": "node src/core/index.js",
     "sync-version": "node sync-version.js",
     "test": "node -e \"console.log('ok')\"",
-    "prepublishOnly": "npm test"
+    "prepublishOnly": "npm test",
+    "postinstall": "node src/utils/postinstall-global-check.cjs"
   },
   "keywords": [
     "DevTunnel-CLI",
