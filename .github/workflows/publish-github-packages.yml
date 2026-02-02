@@ -2,30 +2,40 @@ name: Publish to GitHub Packages
 
 on:
   release:
-    types: [published]   # triggers only when a release is published
+    types: [published]  # only triggers when a release is published
 
 permissions:
   contents: read
-  packages: write        # needed to publish to GitHub Packages
+  packages: write      # needed to publish to GitHub Packages
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout your repo
+      # 1️⃣ Checkout repo
       - uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node and GitHub Packages registry
+      # 2️⃣ Cache npm dependencies
+      - name: Cache npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # 3️⃣ Setup Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: https://npm.pkg.github.com
+          cache: 'none'  # disable auto caching from setup-node
 
-      # 3️⃣ Install dependencies
+      # 4️⃣ Install dependencies
       - run: npm install
 
-      # 4️⃣ Publish to GitHub Packages
+      # 5️⃣ Publish to GitHub Packages
       - name: Publish to GitHub Packages
         run: |
           npm publish --registry=https://npm.pkg.github.com --access=public
