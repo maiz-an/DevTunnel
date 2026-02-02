@@ -14,3 +14,5 @@ bin/
 
 !package.json
 !package-lock.json
+
+.github/workflows/release.yml
