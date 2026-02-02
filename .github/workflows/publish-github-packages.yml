@@ -6,6 +6,7 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,15 +30,14 @@ jobs:
 
       - name: Prepare package for GitHub Packages
         run: |
-          node -e "
+          node << 'SCRIPT'
           const fs = require('fs');
-          const p = require('./package.json');
+          const p = JSON.parse(fs.readFileSync('package.json', 'utf8'));
           p.name = '@maiz-an/devtunnel-cli';
           p.publishConfig = { registry: 'https://npm.pkg.github.com' };
-          p.repository = p.repository || {};
-          p.repository.directory = undefined;
+          if (p.repository) delete p.repository.directory;
           fs.writeFileSync('package.json', JSON.stringify(p, null, 2));
-          "
+          SCRIPT
 
       - name: Publish to GitHub Packages
         run: npm publish --registry=https://npm.pkg.github.com --access=public
