@@ -16,6 +16,12 @@ npm i -g devtunnel-cli
 
 Then run `devtunnel-cli` from your project directory.
 
+Optional: force a specific local port when needed:
+
+```bash
+devtunnel-cli --port 5174
+```
+
 ---
 
 ## 🎯 Purpose & Scope
@@ -60,6 +66,12 @@ devtunnel-cli    # Auto-detects project type and port!
 
 **That's it!** DevTunnel auto-detects Node, Laravel, HTML, and PHP/XAMPP projects.
 
+Port priority logic:
+
+1. `--port` / `-p` flag (if provided)
+2. Auto-detected running local dev server port
+3. Framework default fallback (for example Vite `5173`)
+
 ---
 
 ## ✨ Features
@@ -101,6 +113,22 @@ devtunnel-cli
 ```
 
 **Works with:** Vite, React, Next.js, Express, NestJS, Laravel, plain HTML, PHP/XAMPP, and any HTTP/HTTPS server.
+
+### Automatic Port Detection
+
+DevTunnel automatically scans active localhost dev ports and prioritizes the best match for your current project.
+
+Example with multiple Vite apps:
+
+- Project A runs on `5173`
+- Project B auto-shifts to `5174`
+- Running `devtunnel-cli` inside Project B detects and uses `5174`
+
+You can always override with:
+
+```bash
+devtunnel-cli --port 5174
+```
 
 ---
 

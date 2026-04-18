@@ -5,6 +5,14 @@ import { fileURLToPath } from "url";
 import http from "http";
 import prompts from "prompts";
 import { selectFolder } from "../utils/folder-picker.js";
+import {
+  parsePortFromArgs,
+  normalizePort,
+  isValidPort,
+  getPortHintFromScript,
+  prioritizePorts,
+  buildCandidatePorts
+} from "../utils/port-detection.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,10 +25,53 @@ function getPackageVersion() {
     const pkgPath = join(PROJECT_ROOT, "package.json");
     if (existsSync(pkgPath)) {
       const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
-      return pkg.version || "3.1.5";
+      return pkg.version || "3.1.6";
     }
   } catch (err) { }
-  return "3.1.5";
+  return "3.1.6";
+}
+
+function logInfo(message) {
+  console.log(`i ${message}`);
+}
+
+function logSuccess(message) {
+  console.log(`✔ ${message}`);
+}
+
+function logError(message) {
+  console.log(`✖ ${message}`);
+}
+
+function logWarn(message) {
+  console.log(`! ${message}`);
+}
+
+async function withSpinner(label, task) {
+  if (!process.stdout.isTTY) {
+    return task();
+  }
+
+  const frames = ["|", "/", "-", "\\"];
+  let i = 0;
+  process.stdout.write(`${frames[0]} ${label}`);
+  const timer = setInterval(() => {
+    i = (i + 1) % frames.length;
+    process.stdout.write(`\r${frames[i]} ${label}`);
+  }, 90);
+
+  try {
+    const result = await task();
+    clearInterval(timer);
+    process.stdout.write(`\r`);
+    logSuccess(label);
+    return result;
+  } catch (error) {
+    clearInterval(timer);
+    process.stdout.write(`\r`);
+    logError(`${label} failed`);
+    throw error;
+  }
 }
 
 // Helper to run command (cross-platform)
@@ -87,45 +138,26 @@ async function waitForServerReady(port, timeoutMs = 10000) {
 }
 
 // Detect port from package.json (parse --port / PORT= from script first, then vite.config, then framework defaults)
-function detectPortFromPackage(packagePath) {
+function detectPortHintFromPackage(packagePath) {
   try {
-    if (!existsSync(packagePath)) return null;
+    if (!existsSync(packagePath)) return { port: null, source: "missing-package", framework: "unknown" };
     const packageJson = JSON.parse(readFileSync(packagePath, 'utf8'));
     const scripts = packageJson.scripts || {};
 
     const devScript = scripts.dev || scripts.start || scripts.serve;
-    if (!devScript) return null;
+    if (!devScript) return { port: null, source: "missing-script", framework: "unknown" };
 
-    // Explicit --port or --port= in script (Vite, Next, etc.) takes priority
-    const explicitPort = devScript.match(/(?:--port[\s=]+|--port=)(\d+)/i);
-    if (explicitPort) {
-      const p = parseInt(explicitPort[1], 10);
-      if (p >= 1 && p <= 65535) return p;
-    }
-
-    // PORT=3000 or port=3000 at start of script (e.g. "PORT=3000 vite")
-    const envPort = devScript.match(/(?:^|\s)(?:PORT|port)[\s=]+(\d+)/i);
-    if (envPort) {
-      const p = parseInt(envPort[1], 10);
-      if (p >= 1 && p <= 65535) return p;
-    }
-
-    // Vite: try vite.config.js/ts server.port
     const dir = dirname(packagePath);
     const vitePort = detectViteConfigPort(dir);
-    if (vitePort != null) return vitePort;
 
-    // Default ports by framework
-    if (devScript.includes('vite')) return 5173;
-    if (devScript.includes('next')) return 3000;
-    if (devScript.includes('react-scripts')) return 3000;
-    if (devScript.includes('webpack')) return 8080;
-    if (devScript.includes('express')) return 3000;
-
-    return null;
+    return getPortHintFromScript(devScript, vitePort);
   } catch (err) {
-    return null;
+    return { port: null, source: "parse-error", framework: "unknown" };
   }
+}
+
+function detectPortFromPackage(packagePath) {
+  return detectPortHintFromPackage(packagePath).port;
 }
 
 // Read server.port from vite.config.js or vite.config.ts (simple regex, no eval)
@@ -212,40 +244,68 @@ function httpGetStatus(port, timeoutMs = 4000) {
 
 // Check common ports for running dev servers (3000/5173 first — Vite/Next often use these)
 async function detectRunningDevServer() {
-  const commonPorts = [3000, 5173, 5500, 8080, 8000, 80, 5000, 4000, 3001, 5174];
-  const detected = [];
-  const requestTimeoutMs = 4000;
+  return detectRunningDevServerWithContext({});
+}
 
-  for (const port of commonPorts) {
+async function detectRunningDevServerWithContext({ projectType, framework, hintedPort, hintSource } = {}) {
+  const requestTimeoutMs = 900;
+  const candidates = buildCandidatePorts(hintedPort || null);
+
+  const results = await Promise.all(candidates.map(async (port) => {
     const inUse = await checkPortInUse(port);
-    if (!inUse) continue;
-    try {
-      const status = await Promise.race([
-        httpGetStatus(port, requestTimeoutMs),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), requestTimeoutMs + 500))
-      ]).catch(() => null);
-      // Any HTTP response (2xx/3xx/4xx/5xx) means a server is there
-      if (status != null && status >= 0) {
-        detected.push(port);
-      }
-    } catch {
-      // Port in use but HTTP failed — still list it (user may have started server just now)
-      detected.push(port);
+    if (!inUse) return null;
+
+    const status = await Promise.race([
+      httpGetStatus(port, requestTimeoutMs),
+      new Promise((resolve) => setTimeout(() => resolve(null), requestTimeoutMs + 100))
+    ]).catch(() => null);
+
+    if (status == null && !inUse) return null;
+    return port;
+  }));
+
+  const detectedPorts = results.filter((port) => port != null);
+  return prioritizePorts(detectedPorts, {
+    framework: framework || (projectType === "node" ? "unknown" : projectType),
+    hintedPort,
+    source: hintSource
+  });
+}
+
+async function promptForPort(message, initialPort, retries = 3) {
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
+    const response = await prompts({
+      type: "text",
+      name: "port",
+      message,
+      initial: String(initialPort ?? 5173),
+      validate: (value) => isValidPort(value) ? true : "Enter a port between 1 and 65535"
+    });
+
+    const parsed = normalizePort(response.port);
+    if (parsed != null) return parsed;
+
+    if (attempt < retries) {
+      logWarn(`Invalid port input. Try again (${attempt}/${retries - 1} retries used).`);
     }
   }
 
-  return detected;
+  return null;
 }
 
 // Auto-detect project in current directory (Laravel/PHP first, then Node/npm, then HTML)
 async function autoDetectProject() {
   const currentDir = process.cwd();
   const packagePath = join(currentDir, "package.json");
-  const runningPorts = await detectRunningDevServer();
 
   // 1) Laravel/PHP (composer.json + artisan) — default port 8000 (php artisan serve)
   const laravel = detectLaravelProject(currentDir);
   if (laravel) {
+    const runningPorts = await detectRunningDevServerWithContext({
+      projectType: "laravel",
+      hintedPort: laravel.defaultPort,
+      hintSource: "framework-default"
+    });
     const detectedPort = runningPorts.length > 0 ? runningPorts[0] : laravel.defaultPort;
     return {
       path: currentDir,
@@ -260,13 +320,22 @@ async function autoDetectProject() {
     try {
       const packageJson = JSON.parse(readFileSync(packagePath, "utf8"));
       const projectName = packageJson.name || basename(currentDir);
-      const detectedPort =
-        runningPorts.length > 0 ? runningPorts[0] : detectPortFromPackage(packagePath);
+      const hint = detectPortHintFromPackage(packagePath);
+      const runningPorts = await detectRunningDevServerWithContext({
+        projectType: "node",
+        framework: hint.framework,
+        hintedPort: hint.port,
+        hintSource: hint.source
+      });
+      const detectedPort = runningPorts.length > 0 ? runningPorts[0] : hint.port;
       return {
         path: currentDir,
         name: projectName,
         port: detectedPort,
-        projectType: "node"
+        projectType: "node",
+        framework: hint.framework,
+        portHintSource: hint.source,
+        alternatePorts: runningPorts.slice(1, 6)
       };
     } catch (err) {
       // fall through to HTML check
@@ -276,6 +345,11 @@ async function autoDetectProject() {
   // 3) Plain HTML (index.html) — default port 5500 (Live Server), else built-in static server
   const html = detectHtmlProject(currentDir);
   if (html) {
+    const runningPorts = await detectRunningDevServerWithContext({
+      projectType: "html",
+      hintedPort: html.defaultPort,
+      hintSource: "framework-default"
+    });
     const detectedPort = runningPorts.length > 0 ? runningPorts[0] : html.defaultPort;
     return {
       path: currentDir,
@@ -288,6 +362,11 @@ async function autoDetectProject() {
   // 4) PHP/XAMPP (index.php) — default port 80 (Apache), e.g. http://localhost/PeopleQ/
   const php = detectPhpProject(currentDir);
   if (php) {
+    const runningPorts = await detectRunningDevServerWithContext({
+      projectType: "php",
+      hintedPort: php.defaultPort,
+      hintSource: "framework-default"
+    });
     const detectedPort = runningPorts.length > 0 ? runningPorts[0] : php.defaultPort;
     return {
       path: currentDir,
@@ -319,6 +398,8 @@ function showLogo() {
 }
 
 async function main() {
+  const cliPort = parsePortFromArgs(process.argv.slice(2));
+
   // Clear screen - works on Windows, macOS, Linux
   // ANSI escape codes for clear screen + cursor to top
   process.stdout.write('\x1B[2J\x1B[0f');
@@ -353,7 +434,7 @@ async function main() {
     console.log("Install from: https://nodejs.org/");
     process.exit(1);
   }
-  console.log("SUCCESS: Node.js " + process.version + " installed");
+  logSuccess("Node.js " + process.version + " installed");
   console.log("");
 
   // Step 2: Check Cloudflare (bundled or system-installed)
@@ -379,7 +460,7 @@ async function main() {
       const bundledPath = await setupCloudflared();
 
       if (bundledPath) {
-        console.log("SUCCESS: Cloudflare ready to use");
+        logSuccess("Cloudflare ready to use");
         cloudflareAvailable = true;
       } else {
         console.log("Could not download Cloudflare");
@@ -422,9 +503,9 @@ async function main() {
       process.exit(1);
     }
     console.log("");
-    console.log("SUCCESS: Dependencies installed");
+    logSuccess("Dependencies installed");
   } else {
-    console.log("SUCCESS: Dependencies already installed");
+    logSuccess("Dependencies already installed");
   }
   console.log("");
 
@@ -434,7 +515,7 @@ async function main() {
   let projectPath, projectName, devPort;
 
   // Try to auto-detect project in current directory
-  const autoDetected = await autoDetectProject();
+  const autoDetected = await withSpinner("Scanning project and local ports", () => autoDetectProject());
 
   if (autoDetected && autoDetected.port) {
     // Auto-detected project with port
@@ -454,38 +535,34 @@ async function main() {
             : autoDetected.projectType === "php"
               ? "PHP/XAMPP"
               : "package.json";
-      console.log(`Detected port ${autoDetected.port} (${portSource}), but no server running on that port`);
-      console.log("Checking for running dev servers...");
+      logWarn(`Detected port ${autoDetected.port} (${portSource}), but no server is currently listening.`);
+      logInfo("Checking for other running local servers...");
 
-      const runningPorts = await detectRunningDevServer();
+      const runningPorts = await detectRunningDevServerWithContext({
+        projectType: autoDetected.projectType,
+        framework: autoDetected.framework,
+        hintedPort: autoDetected.port,
+        hintSource: autoDetected.portHintSource
+      });
       if (runningPorts.length > 0) {
-        if (runningPorts.length === 1) {
-          devPort = runningPorts[0];
-          console.log(`Found running dev server on port: ${devPort}`);
-        } else {
-          console.log(`Found ${runningPorts.length} running dev server(s) on port(s): ${runningPorts.join(', ')}`);
-          const portResponse = await prompts({
-            type: "select",
-            name: "port",
-            message: "Select port:",
-            choices: runningPorts.map(p => ({ title: `Port ${p}`, value: p }))
-          });
-
-          if (!portResponse.port) {
-            console.log("ERROR: No port selected");
-            process.exit(1);
-          }
-
-          devPort = portResponse.port;
+        devPort = runningPorts[0];
+        logSuccess(`Auto-selected running port ${devPort}`);
+        if (runningPorts.length > 1) {
+          logInfo(`Other detected ports: ${runningPorts.slice(1, 6).join(", ")}`);
         }
       } else {
         // No running servers, use detected port (user might start it later)
         devPort = autoDetected.port;
-        console.log(`Using detected port: ${devPort} (make sure dev server is running)`);
+        logInfo(`Using detected port ${devPort}; start your dev server before tunneling.`);
       }
     } else {
       // Port is in use, use it
       devPort = autoDetected.port;
+    }
+
+    if (cliPort) {
+      devPort = cliPort;
+      logSuccess(`Using CLI --port override: ${devPort}`);
     }
 
     console.log(`Detected project: ${projectName}`);
@@ -526,29 +603,19 @@ async function main() {
           ? htmlSelected.defaultPort
           : detectPortFromPackage(selectedPackagePath);
 
-      const portResponse = await prompts({
-        type: "number",
-        name: "port",
-        message: "Enter your dev server port:",
-        initial: detectedPort || 5173
-      });
+      const enteredPort = await promptForPort("Enter your dev server port:", cliPort || detectedPort || 5173);
 
-      if (!portResponse.port) {
+      if (!enteredPort) {
         console.log("ERROR: No port entered");
         process.exit(1);
       }
 
-      devPort = portResponse.port;
+      devPort = enteredPort;
     } else {
       // User confirmed – let them keep default port or type another (e.g. HTML default 5500, can change)
-      const portPrompt = await prompts({
-        type: "number",
-        name: "port",
-        message: "Dev server port (press Enter for default):",
-        initial: devPort
-      });
-      if (portPrompt.port != null && portPrompt.port > 0) {
-        devPort = portPrompt.port;
+      const confirmedPort = await promptForPort("Dev server port (press Enter for detected):", cliPort || devPort);
+      if (confirmedPort != null) {
+        devPort = confirmedPort;
       }
     }
   } else if (autoDetected && !autoDetected.port) {
@@ -560,45 +627,29 @@ async function main() {
     console.log(`Using current directory: ${projectPath}`);
     console.log("Checking for running dev servers...");
 
-    const runningPorts = await detectRunningDevServer();
+    const runningPorts = await detectRunningDevServerWithContext({
+      projectType: autoDetected.projectType,
+      framework: autoDetected.framework,
+      hintedPort: autoDetected.port,
+      hintSource: autoDetected.portHintSource
+    });
 
     if (runningPorts.length > 0) {
-      console.log(`Found ${runningPorts.length} running dev server(s) on port(s): ${runningPorts.join(', ')}`);
-
-      if (runningPorts.length === 1) {
-        devPort = runningPorts[0];
-        console.log(`Using port: ${devPort}`);
-      } else {
-        // Multiple ports detected, let user choose
-        const portResponse = await prompts({
-          type: "select",
-          name: "port",
-          message: "Select port:",
-          choices: runningPorts.map(p => ({ title: `Port ${p}`, value: p }))
-        });
-
-        if (!portResponse.port) {
-          console.log("ERROR: No port selected");
-          process.exit(1);
-        }
-
-        devPort = portResponse.port;
+      devPort = cliPort || runningPorts[0];
+      logSuccess(`Auto-selected running port: ${devPort}`);
+      if (runningPorts.length > 1) {
+        logInfo(`Other detected ports: ${runningPorts.slice(1, 6).join(", ")}`);
       }
     } else {
       // No running server, ask for port
-      const portResponse = await prompts({
-        type: "number",
-        name: "port",
-        message: "Enter your dev server port:",
-        initial: 5173
-      });
+      const enteredPort = await promptForPort("Enter your dev server port:", cliPort || 5173);
 
-      if (!portResponse.port) {
+      if (!enteredPort) {
         console.log("ERROR: No port entered");
         process.exit(1);
       }
 
-      devPort = portResponse.port;
+      devPort = enteredPort;
     }
 
     console.log("");
@@ -633,30 +684,76 @@ async function main() {
           : detectPortFromPackage(selectedPackagePath);
 
     // Check for running servers
-    const runningPorts = await detectRunningDevServer();
+    const runningPorts = await detectRunningDevServerWithContext({ hintedPort: detectedPort, hintSource: "manual-folder" });
 
     let initialPort = detectedPort || 5173;
     if (runningPorts.length > 0 && !detectedPort) {
       initialPort = runningPorts[0];
     }
 
-    const portResponse = await prompts({
-      type: "number",
-      name: "port",
-      message: "Enter your dev server port:",
-      initial: initialPort
-    });
+    const enteredPort = await promptForPort("Enter your dev server port:", cliPort || initialPort);
 
-    if (!portResponse.port) {
+    if (!enteredPort) {
       console.log("ERROR: No port entered");
       process.exit(1);
     }
 
-    devPort = portResponse.port;
+    devPort = enteredPort;
+  }
+
+  if (cliPort && devPort !== cliPort) {
+    devPort = cliPort;
+    logSuccess(`Using CLI --port override: ${devPort}`);
+  }
+
+  if (!isValidPort(devPort)) {
+    logError("Resolved an invalid port. Use --port <1-65535> or re-run and enter a valid port.");
+    process.exit(1);
+  }
+
+  // Preflight target server check with graceful fallback.
+  let devServerReachable = await checkPortInUse(devPort);
+  if (!devServerReachable) {
+    logWarn(`No active server found on port ${devPort}.`);
+
+    const fallbackAnswer = await prompts({
+      type: "confirm",
+      name: "retry",
+      message: "Try another port now?",
+      initial: true
+    });
+
+    if (fallbackAnswer.retry) {
+      const retryPort = await promptForPort("Enter a running dev server port:", devPort, 3);
+      if (retryPort == null) {
+        logError("Failed to collect a valid port after multiple attempts.");
+        process.exit(1);
+      }
+      devPort = retryPort;
+      devServerReachable = await checkPortInUse(devPort);
+    }
+
+    if (!devServerReachable && !detectHtmlProject(projectPath)) {
+      logError(`Could not connect to a local server on port ${devPort}.`);
+      logInfo("Start your app first (for example: npm run dev) or use --port <port>.");
+      process.exit(1);
+    }
   }
 
   console.log("");
-  const proxyPort = devPort + 1000; // Use port 1000 higher for proxy
+  let proxyPort = devPort + 1000; // Use port 1000 higher for proxy
+  const proxyBusy = await checkPortInUse(proxyPort);
+  if (proxyBusy) {
+    const altProxyPorts = await detectRunningDevServerWithContext({ hintedPort: proxyPort });
+    const blocked = new Set(altProxyPorts);
+    for (let p = devPort + 1001; p <= devPort + 1100; p += 1) {
+      if (!blocked.has(p) && !(await checkPortInUse(p))) {
+        proxyPort = p;
+        logWarn(`Default proxy port ${devPort + 1000} is busy, using ${proxyPort} instead.`);
+        break;
+      }
+    }
+  }
 
   // XAMPP subfolder (e.g. htdocs/PeopleQ → http://localhost/PeopleQ/) — proxy rewrites path
   const isPhpXamppSubfolder =

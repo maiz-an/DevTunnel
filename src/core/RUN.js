@@ -26,7 +26,7 @@ if (showVersion) {
 }
 
 const originalEmitWarning = process.emitWarning;
-process.emitWarning = function(warning, ...args) {
+process.emitWarning = function (warning, ...args) {
   if (typeof warning === 'string' && warning.includes('util._extend')) {
     return;
   }
@@ -39,7 +39,7 @@ console.clear();
 const startPath = join(__dirname, "start.js");
 // Use same Node binary as current process (works when "node" is not in PATH)
 const nodeBin = process.execPath;
-const child = spawn(nodeBin, [startPath], {
+const child = spawn(nodeBin, [startPath, ...args], {
   stdio: "inherit",
   shell: false
 });
