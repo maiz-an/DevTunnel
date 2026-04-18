@@ -1,12 +1,12 @@
 # DevTunnel-CLI 🚀
 
-**Share your local dev servers worldwide - Zero config tunnel for any framework**
+## Share your local dev servers worldwide - Zero config tunnel for any framework
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/maiz-an/DevTunnel-CLI)
 [![npm version](https://img.shields.io/npm/v/devtunnel-cli)](https://www.npmjs.com/package/devtunnel-cli)
 
-🌐 **Website:** [devtunnel-cli.vercel.app](https://devtunnel-cli.vercel.app) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub:** [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
+🌐 **Website:** [devtunnel-cli.vercel.app](https://devtunnel-cli.vercel.app) | 📦 **npm:** [devtunnel-cli](https://www.npmjs.com/package/devtunnel-cli) | 💻 **GitHub:** [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI) | 💬 **Discord:** [Join the community](https://discord.gg/jTc8wMPv)
 
 ## Install
 
@@ -173,3 +173,4 @@ Find this project as: **DevTunnel**, **devtunnel**, **dev-tunnel**, **Dev-Tunnel
 - **GitHub**: [maiz-an/DevTunnel-CLI](https://github.com/maiz-an/DevTunnel-CLI)
 - **Issues**: [GitHub Issues](https://github.com/maiz-an/DevTunnel-CLI/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/maiz-an/DevTunnel-CLI/discussions)
+- **Discord**: [Join the community](https://discord.gg/jTc8wMPv)
