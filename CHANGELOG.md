@@ -2,6 +2,13 @@
 
 All notable changes to DevTunnel will be documented in this file.
 
+## [3.1.8] - 2026-04-18
+
+### Changed
+
+- **CI compatibility** - Removed Node 16 from GitHub Actions test matrix (`18.x`, `20.x` only) because dependency toolchain now requires newer Node for `npm ci`.
+- **Release version** - Bumped package version for GitHub/npm release alignment.
+
 ## [3.0.35] - 2026-01-30
 
 ### Changed
